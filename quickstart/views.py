@@ -25,7 +25,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 class NewPhotoUploadView(APIView):
     def post(self, request, format=None):
         uploaded_file = request.FILES['file']
-        path_fmt = '{}/{survey}-{response}-{question}-{filename}'
+        path_fmt = '{}/{filename}'
         with open(path_fmt.format(settings.MEDIA_ROOT, **request.data), 'wb+') as file:
             for chunk in uploaded_file.chunks():
                 file.write(chunk)
