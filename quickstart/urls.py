@@ -3,7 +3,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from quickstart import views
 
 urlpatterns = [
-    url(r'^upload-photo/$', views.NewPhotoUploadView.as_view(), name='upload-photo'),
+    url(r'^upload-photo/$', views.PointCalculation.as_view(), name='point-calculation'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

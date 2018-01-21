@@ -6,6 +6,9 @@ from quickstart.serializers import UserSerializer, GroupSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from .utils import calculate_point
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -22,11 +25,15 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class NewPhotoUploadView(APIView):
+class PointCalculation(APIView):
     def post(self, request, format=None):
         uploaded_file = request.FILES['file']
-        path_fmt = '{}/{filename}'
-        with open(path_fmt.format(settings.MEDIA_ROOT, **request.data), 'wb+') as file:
+        filename = '{filename}'.format(**request.data)
+        path_fmt = '{}/{}'
+        with open(path_fmt.format(settings.MEDIA_ROOT, filename), 'wb+') as file:
             for chunk in uploaded_file.chunks():
                 file.write(chunk)
-        return Response(status=204)
+        point = calculate_point(filename)
+        return Response(status=204, data={
+            'point': point
+        })
