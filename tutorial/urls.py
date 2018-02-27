@@ -2,6 +2,8 @@ import os
 
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 from rest_framework import routers
 from quickstart import views as qs_views
@@ -22,6 +24,8 @@ urlpatterns = [
 
     url(r'^quickstart/', include('quickstart.urls')),
 
-]
+] + static(settings.STATIC_URL)
 
-
+print('============')
+print(settings.STATIC_URL)
+print(settings.STATIC_ROOT)
