@@ -12,137 +12,30 @@
   </div>
   <div class="clearfix"></div>
   <div class="row">
-    <div class="col-md-12 col-sm-6 col-xs-6">
-     
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
   <div class="x_panel">
     <div class="x_title">
       <h2>Choices Form <small>Add question and answer</small></h2>
-      <ul class="nav navbar-right panel_toolbox">
-        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Settings 1</a>
-            </li>
-            <li><a href="#">Settings 2</a>
-            </li>
-          </ul>
-        </li>
-        <li><a class="close-link"><i class="fa fa-close"></i></a>
-        </li>
-      </ul>
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
 
-        <div class="row">
+        <div class="row" ng-repeat="question in questions">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <form style="margin-bottom: 35px">
+                <div style="margin-bottom: 35px">
                     <div class="input-group">
-                        <span class="input-group-addon">คำถาม 1</span>
-                        <input id="msg" type="text" class="form-control" name="msg" placeholder="เพิ่มคำถาม">
+                        <span class="input-group-addon">คำถาม {{ question.id + 1 }}</span>
+                        <input type="text" ng-value="question.name" class="form-control" name="msg" placeholder="เพิ่มคำถาม">
                     </div>
-                    <div class="input-group">
+                    <div class="input-group" ng-repeat="(index, answer) in question.answers">
                         <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
+                            <input type="checkbox" ng-checked="answer.check" aria-label="Checkbox for following text input">
                         </span>
-                        <span class="input-group-addon">ก</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
+                        <span class="input-group-addon">{{ question_label[index] }}</span>
+                        <input type="text" class="form-control" ng-value="answer.name" aria-label="Text input with checkbox">
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ข</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ค</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ง</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                </form>
-
-                <form style="margin-bottom: 35px">
-                    <div class="input-group">
-                        <span class="input-group-addon">คำถาม 2</span>
-                        <input id="msg" type="text" class="form-control" name="msg" placeholder="เพิ่มคำถาม">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ก</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ข</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ค</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ง</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                </form>
-
-
-                <form style="margin-bottom: 35px">
-                    <div class="input-group">
-                        <span class="input-group-addon">คำถาม 3</span>
-                        <input id="msg" type="text" class="form-control" name="msg" placeholder="เพิ่มคำถาม">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ก</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ข</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ค</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </span>
-                        <span class="input-group-addon">ง</span>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox">
-                    </div>
-                </form>
+                </div>
 
             </div>
         </div>

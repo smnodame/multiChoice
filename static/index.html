@@ -11,7 +11,7 @@
   <title>Gentellela Alela! | </title>
 
   <!-- Bootstrap core CSS -->
-
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
 
   <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
@@ -28,9 +28,6 @@
   <link href="css/select/select2.min.css" rel="stylesheet">
   <!-- switchery -->
   <link rel="stylesheet" href="css/switchery/switchery.min.css" />
-
-  <script src="js/jquery.min.js"></script>
-
 </head>
 
 
@@ -123,7 +120,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <div ng-view></div>
-            
+
         </div>
 
         </div>
@@ -143,7 +140,6 @@
         <!-- /footer content -->
 
       </div>
-
     </div>
   </div>
 
@@ -153,31 +149,15 @@
     <div class="clearfix"></div>
     <div id="notif-group" class="tabbed_notifications"></div>
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-    <script>
-        var app = angular.module("myApp", ["ngRoute"]);
-        app.config(function($routeProvider) {
-            $routeProvider
-            .when("/", {
-                templateUrl : "components/create_new_form.html",
-                controller: 'create_new_form_ctrl'
-            })
-            .when("/:id", {
-                templateUrl : "components/question_form.html",
-                controller: 'question_form_ctrl'
-            })
-        });
-        app.controller('create_new_form_ctrl',  function ($scope) {
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="app/index.js"></script>
+    <script type="text/javascript">
 
-        })
-        app.controller('question_form_ctrl',  function ($scope) {
-
-        })
     </script>
-
-  <!-- /editor -->
 </body>
 
 </html>
