@@ -2,11 +2,11 @@ var app = angular.module("myApp", ["ngRoute"])
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "components/create_new_form.html",
+        templateUrl : "static/components/create_new_form.html",
         controller: 'create_new_form_ctrl'
     })
     .when("/:id", {
-        templateUrl : "components/question_form.html",
+        templateUrl : "static/components/question_form.html",
         controller: 'question_form_ctrl'
     })
 });

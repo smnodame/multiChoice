@@ -17,11 +17,12 @@ router.register(r'groups', qs_views.GroupViewSet)
 # Wire up our API using automatAic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    # url(r'^$', tt_views.index, name='index'),
+    url(r'^$', tt_views.index, name='index'),
     url(r'^url/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^quickstart/', include('quickstart.urls')),
+    url(r'^question/create', tt_views.create_question, name='create_question')
 
 ] + static(settings.STATIC_URL)
