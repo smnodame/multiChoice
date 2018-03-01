@@ -1,11 +1,11 @@
 var app = angular.module("myApp", ["ngRoute"])
 app.config(function($routeProvider) {
     $routeProvider
-    .when("/", {
+    .when("/form/create", {
         templateUrl : "static/components/create_new_form.html",
         controller: 'create_new_form_ctrl'
     })
-    .when("/:id", {
+    .when("/form/:id", {
         templateUrl : "static/components/question_form.html",
         controller: 'question_form_ctrl'
     })
@@ -68,7 +68,7 @@ app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function
 
         $http.post('/question/create', data).then((res) => {
             console.log('[submit] success ', res)
-            const new_id = $location.url('/' + slug)
+            const new_id = $location.url('/form/' + slug)
         })
     }
 }])
@@ -83,7 +83,17 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', functi
     }
 
     $http.get('/question?slug='+ $routeParams.id).then((res) => {
+        $scope.form = res.data
         $scope.questions = JSON.parse(res.data.answers)
     })
 
+    $scope.update = () => {
+        const data = Object.assign({}, $scope.form, {
+            answers: JSON.stringify($scope.questions)
+        })
+
+        $http.put('/question/update', data).then((res) => {
+            console.log('[submit] update ', res)
+        })
+    }
 }])

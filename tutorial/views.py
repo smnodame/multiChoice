@@ -15,7 +15,7 @@ from tutorial.models import FormChoice
 def index(request):
     return render(request, 'tutorial/index.html')
 
-@api_view(['GET', 'POST', ])
+@api_view(['POST', ])
 @csrf_exempt
 def create_question(request):
     form = FormChoice.objects.create(
@@ -36,7 +36,7 @@ def create_question(request):
     return Response(json.loads(data), status=status.HTTP_201_CREATED, content_type="application/json")
 
 
-@api_view(['GET', 'POST', ])
+@api_view(['GET', ])
 @csrf_exempt
 def get_question(request):
     form = FormChoice.objects.get(slug=request.GET["slug"])
@@ -46,3 +46,19 @@ def get_question(request):
     data = json.dumps(struct[0]['fields'])
 
     return Response(json.loads(data), status=status.HTTP_200_OK, content_type="application/json")
+
+
+@api_view(['PUT', ])
+@csrf_exempt
+def update_question(request):
+    FormChoice.objects.filter(slug=request.data.get("slug", "")).update(
+        name = request.data.get("name", ""),
+        description = request.data.get("description", ""),
+        time = request.data.get("time", ""),
+        question_amount = request.data.get("question_amount", 10),
+        subject = request.data.get("subject", ""),
+        date = request.data.get("date", ""),
+        answers = request.data.get("answers", "")
+    )
+
+    return Response(status=status.HTTP_204_NO_CONTENT)
