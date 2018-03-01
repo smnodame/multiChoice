@@ -34,3 +34,15 @@ def create_question(request):
     data = json.dumps(struct[0]['fields'])
 
     return Response(json.loads(data), status=status.HTTP_201_CREATED, content_type="application/json")
+
+
+@api_view(['GET', ])
+@csrf_exempt
+def get_question(request):
+    form = FormChoice.objects.get(slug=request.GET["slug"])
+    data = serializers.serialize('json', [form,])
+
+    struct = json.loads(data)
+    data = json.dumps(struct[0]['fields'])
+
+    return Response(json.loads(data), status=status.HTTP_200_OK, content_type="application/json")
