@@ -46,7 +46,7 @@ app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function
 
     const get_questions = () => {
         const questions = []
-        for(let i = 0; i < question_amount; i++) {
+        for(let i = 0; i < $scope.question_amount; i++) {
             questions.push(question_interface(i))
         }
         return questions
@@ -81,7 +81,7 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', functi
         '3': 'ง',
         '4': 'จ'
     }
-    
+
     $http.get('/question?slug='+ $routeParams.id).then((res) => {
         $scope.questions = JSON.parse(res.data.answers)
     })

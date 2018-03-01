@@ -23,6 +23,6 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^quickstart/', include('quickstart.urls')),
-    url(r'^question/', tt_views.get_question, name='get_question'),
     url(r'^question/create', tt_views.create_question, name='create_question'),
+    url(r'^question/', tt_views.get_question, name='get_question'),
 ] + static(settings.STATIC_URL)
