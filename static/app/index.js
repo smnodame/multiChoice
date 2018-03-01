@@ -9,6 +9,10 @@ app.config(function($routeProvider) {
         templateUrl : "static/components/form_list.html",
         controller: 'form_lists_ctrl'
     })
+    .when("/form/:id/edit", {
+        templateUrl : "static/components/form_edit.html",
+        controller: 'form_edit_ctrl'
+    })
     .when("/form/:id", {
         templateUrl : "static/components/question_form.html",
         controller: 'question_form_ctrl'
@@ -77,7 +81,7 @@ app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function
     }
 }])
 
-app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
     $scope.question_label = {
         '0': 'ก',
         '1': 'ข',
@@ -98,14 +102,46 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', functi
 
         $http.put('/question/update', data).then((res) => {
             console.log('[submit] update ', res)
+        }).then(() => {
+            $location.url('/form/lists')
         })
     }
 }])
 
-app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
 
     $http.get('/forms').then((res) => {
         $scope.forms = res.data
     })
 
+    $scope.update = (id) => {
+        $location.url('/form/'+ id +'/edit')
+    }
+}])
+
+app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+    $scope.question_label = {
+        '0': 'ก',
+        '1': 'ข',
+        '2': 'ค',
+        '3': 'ง',
+        '4': 'จ'
+    }
+
+    $http.get('/question?slug='+ $routeParams.id).then((res) => {
+        $scope.form = res.data
+        $scope.questions = JSON.parse(res.data.answers)
+    })
+
+    $scope.update = () => {
+        const data = Object.assign({}, $scope.form, {
+            answers: JSON.stringify($scope.questions)
+        })
+
+        $http.put('/question/update', data).then((res) => {
+            console.log('[submit] update ', res)
+        }).then(() => {
+            $location.url('/form/lists')
+        })
+    }
 }])

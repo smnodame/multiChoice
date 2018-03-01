@@ -1,0 +1,106 @@
+<div style="min-height: 950px;" >
+
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Update The Exercise</h3>
+    </div>
+    <div class="title_right">
+        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right top_search">
+            <button ng-click="update()" class="btn btn-success" style="float: right;">Update</button>
+        </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Form Details <small>Update detail for the exercise</small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br />
+          <form  data-parsley-validate class="form-horizontal form-label-left">
+
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ชื่อข้อสอบ <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" ng-model="form.name" required="required" class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">รายละเอียดเพิ่มเติม <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" ng-model="form.description" required="required" class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">เวลาในการทำข้อสอบ <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" ng-model="form.time" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคำถาม <span class="required">*</span> </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input min="10" max="100"  ng-model="form.question_amount" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">วิชา <span class="required">*</span> </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input  ng-model="form.subject" class="form-control col-md-7 col-xs-12" type="text" required="required" name="middle-name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่สอบ <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="datepicker" ng-model="form.date" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+              </div>
+            </div>
+            <div class="ln_solid"></div>
+
+          </form>
+        </div>
+      </div>
+
+
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Choices Form <small>Add question and answer</small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+            <div class="row" ng-repeat="question in questions">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div style="margin-bottom: 35px">
+                        <div class="input-group">
+                            <span class="input-group-addon">คำถาม {{ question.id + 1 }}</span>
+                            <input type="text" ng-model="question.name" class="form-control" name="msg" placeholder="เพิ่มคำถาม">
+                        </div>
+                        <div class="input-group" ng-repeat="(index, answer) in question.answers">
+                            <span class="input-group-addon">
+                                <input type="checkbox" ng-model="answer.check" aria-label="Checkbox for following text input">
+                            </span>
+                            <span class="input-group-addon">{{ question_label[index] }}</span>
+                            <input type="text" class="form-control" ng-model="answer.name" aria-label="Text input with checkbox">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>
