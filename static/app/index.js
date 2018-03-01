@@ -110,12 +110,23 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', '$loca
 
 app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
 
-    $http.get('/forms').then((res) => {
-        $scope.forms = res.data
-    })
+    const init = () => {
+        $http.get('/forms').then((res) => {
+            $scope.forms = res.data
+        })
+    }
+    init()
 
     $scope.update = (id) => {
         $location.url('/form/'+ id +'/edit')
+    }
+
+    $scope.delete = (id) => {
+        $http.delete('/question/delete?slug='+ id).then((res) => {
+            console.log('[submit] delete ', res)
+        }).then(() => {
+            init()
+        })
     }
 }])
 

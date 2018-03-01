@@ -19,7 +19,7 @@ def index(request):
 @api_view(['POST', ])
 @csrf_exempt
 def create_question(request):
-    form = FormChoice.objects.create(
+    queryset = FormChoice.objects.create(
         slug = request.data.get("slug", ""),
         name = request.data.get("name", ""),
         description = request.data.get("description", ""),
@@ -73,3 +73,9 @@ def get_forms(request):
     queryset = FormChoice.objects.all()
     serializer = FormSerializer(queryset, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+
+@api_view(['DELETE', ])
+def delete_question(request):
+    queryset = FormChoice.objects.get(slug=request.GET["slug"])
+    queryset.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)

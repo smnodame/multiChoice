@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^forms', tt_views.get_forms, name='get_forms'),
     url(r'^question/create', tt_views.create_question, name='create_question'),
     url(r'^question/update', tt_views.update_question, name='update_question'),
+    url(r'^question/delete', tt_views.delete_question, name='delete_question'),
     url(r'^question/', tt_views.get_question, name='get_question'),
 ] + static(settings.STATIC_URL)
