@@ -1,0 +1,60 @@
+<div style="min-height: 950px;" >
+
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Exercise Lists</h3>
+    </div>
+    <div class="title_right">
+      <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right top_search">
+
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Manage your exercise <small>Update detail for the exercise</small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th>Question amount</th>
+                        <th>Duration</th>
+                        <th>Testing date</th>
+                        <th>DOWNLOAD</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="form in forms">
+                        <th scope="row">1</th>
+                        <td>{{ form.name }}</td>
+                        <td>{{ form.subject }}</td>
+                        <td>{{ form.question_amount }}</td>
+                        <td>{{ form.time }}</td>
+                        <td>{{ form.date }}</td>
+                        <td>
+                            <button type="button" class="btn btn-info">PDF</button>
+                            <button type="button" class="btn btn-success">PRINT</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning">EDIT</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

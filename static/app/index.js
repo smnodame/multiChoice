@@ -5,6 +5,10 @@ app.config(function($routeProvider) {
         templateUrl : "static/components/create_new_form.html",
         controller: 'create_new_form_ctrl'
     })
+    .when("/form/lists", {
+        templateUrl : "static/components/form_list.html",
+        controller: 'form_lists_ctrl'
+    })
     .when("/form/:id", {
         templateUrl : "static/components/question_form.html",
         controller: 'question_form_ctrl'
@@ -96,4 +100,12 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', functi
             console.log('[submit] update ', res)
         })
     }
+}])
+
+app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+
+    $http.get('/forms').then((res) => {
+        $scope.forms = res.data
+    })
+
 }])
