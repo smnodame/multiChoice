@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="form in forms">
-                        <th scope="row">1</th>
+                        <th scope="row">{{ $index + 1 }}</th>
                         <td>{{ form.name }}</td>
                         <td>{{ form.subject }}</td>
                         <td>{{ form.question_amount }}</td>
