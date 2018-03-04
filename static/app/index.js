@@ -17,6 +17,10 @@ app.config(function($routeProvider) {
         templateUrl : "static/components/question_form.html",
         controller: 'question_form_ctrl'
     })
+    .when("/student", {
+        templateUrl : "static/components/student_manament.html",
+        // controller: 'question_form_ctrl'
+    })
 });
 
 app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {

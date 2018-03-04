@@ -12,3 +12,37 @@ class FormChoice(models.Model):
     subject = models.CharField(max_length=5000)
     date = models.CharField(max_length=50)
     answers = models.TextField()
+
+
+class Student(models.Model):
+    slug = models.CharField(max_length=50)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
+
+    _GRADE = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6')
+    )
+    grade = models.CharField(max_length=100, choices=_GRADE)
+
+    _LEVEL = (
+        ('ประถม', 'ประถม'),
+        ('มัธยม', 'มัธยม')
+    )
+    level = models.CharField(max_length=100, choices=_LEVEL)
+
+    _ROOM = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4')
+    )
+    room = models.CharField(max_length=50, choices=_ROOM)
+
+    def __str__(self):
+        return '{} {}'.format(self.firstname, self.lastname) 
