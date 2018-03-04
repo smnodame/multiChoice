@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^question/update', tt_views.update_question, name='update_question'),
     url(r'^question/delete', tt_views.delete_question, name='delete_question'),
     url(r'^question/', tt_views.get_question, name='get_question'),
+    url(r'^student/', tt_views.get_student, name='get_student'),
 ] + static(settings.STATIC_URL)

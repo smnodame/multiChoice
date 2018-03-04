@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import serializers
 
-from tutorial.models import FormChoice
+from tutorial.models import FormChoice, Student
 
 def index(request):
     return render(request, 'tutorial/index.html')
@@ -42,6 +42,14 @@ def get_question(request):
     return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
 
 
+@api_view(['GET', ])
+@csrf_exempt
+def get_student(request):
+    queryset = Student.objects.filter(year=request.GET["year"], grade=request.GET["grade"], level=request.GET["level"], room=request.GET["room"])
+    serializer = StudentSerializer(queryset, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+
+
 @api_view(['PUT', ])
 @csrf_exempt
 def update_question(request):
@@ -57,6 +65,14 @@ def update_question(request):
 
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+class StudentSerializer(serializers.Serializer):
+    slug = serializers.CharField(max_length=50)
+    firstname = serializers.CharField(max_length=100)
+    lastname = serializers.CharField(max_length=100)
+    year = serializers.CharField(max_length=100)
+    grade = serializers.CharField(max_length=100)
+    level = serializers.CharField(max_length=100)
+    room = serializers.CharField(max_length=50)
 
 class FormSerializer(serializers.Serializer):
     slug = serializers.CharField(max_length=20)

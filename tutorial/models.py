@@ -45,4 +45,7 @@ class Student(models.Model):
     room = models.CharField(max_length=50, choices=_ROOM)
 
     def __str__(self):
-        return '{} {}'.format(self.firstname, self.lastname) 
+        return '{} {}'.format(self.firstname, self.lastname)
+
+    def __unicode__(self):
+        return u'{} {}'.format(self.firstname, self.lastname)
