@@ -19,7 +19,7 @@ app.config(function($routeProvider) {
     })
     .when("/student", {
         templateUrl : "static/components/student_manament.html",
-        // controller: 'question_form_ctrl'
+        controller: 'student_list_ctrl'
     })
 });
 
@@ -159,4 +159,11 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
             $location.url('/form/lists')
         })
     }
+}])
+
+app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+    $http.get('/student/?year=2018&level=ประถม&grade=1&room=1').then((res) => {
+        $scope.students = res.data
+        console.log('[student_list_ctrl] ', res.data)
+    })
 }])
