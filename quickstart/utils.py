@@ -20,11 +20,11 @@ def calculate_point(filename):
     # define the answer key which maps the question number
     # to the correct answer
     ANSWER_KEY = {
-    	1: 2,
+    	1: 1,
     	2: 1,
-    	3: 3,
-    	4: 4,
-    	5: 2
+    	3: 1,
+    	4: 2,
+    	5: 3
     }
 
     # load the image, convert it to grayscale, blur it
