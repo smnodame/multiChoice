@@ -48,7 +48,7 @@ def calculate_point(filename):
     	cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
         print('step 3')
     	# loop over the sorted contours
-    	end = 0
+    	round = 0
     	for c in cnts:
     		# approximate the contour
     		peri = cv2.arcLength(c, True)
@@ -58,9 +58,11 @@ def calculate_point(filename):
     		# then we can assume we have found the paper
     		if len(approx) == 4:
     			docCnt = approx
-    			if end == 1:
+
+    			(x, y, w, h) = cv2.boundingRect(cnts[round + 1])
+    			if w < 1000:
     				break
-    			end = end + 1
+    			round = round + 1
 
     print('step 4')
     # apply a four point perspective transform to both the
@@ -91,7 +93,7 @@ def calculate_point(filename):
     	# in order to label the contour as a question, region
     	# should be sufficiently wide, sufficiently tall, and
     	# have an aspect ratio approximately equal to 1
-    	if w >= 16 and h >= 16 and w <= 32 and h <= 31 and ar >= 0.8 and ar <= 1.2:
+    	if w >= 15 and h >= 15 and w <= 50 and h <= 50:
     		questionCnts.append(c)
 
     # sort the question contours top-to-bottom, then initialize
@@ -101,6 +103,9 @@ def calculate_point(filename):
     print(len(questionCnts))
     print('step 7')
     correct = 0
+
+    if(len(questionCnts) != 500):
+        raise ValueError('Wrong number of answer.')
     # each question has 5 possible answers, to loop over the
     # question in batches of 5
     questionCnts.reverse()
