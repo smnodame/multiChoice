@@ -33,20 +33,20 @@ def calculate_point(filename):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
     edged = cv2.Canny(blurred, 75, 200)
-
+    print('step 1')
     # find contours in the edge map, then initialize
     # the contour that corresponds to the document
     cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST,
     	cv2.CHAIN_APPROX_SIMPLE)
     cnts = cnts[0] if imutils.is_cv2() else cnts[1]
     docCnt = None
-
+    print('step 2')
     # ensure that at least one contour was found
     if len(cnts) > 0:
     	# sort the contours according to their size in
     	# descending order
     	cnts = sorted(cnts, key=cv2.contourArea, reverse=True)
-
+        print('step 3')
     	# loop over the sorted contours
     	end = 0
     	for c in cnts:
@@ -62,12 +62,13 @@ def calculate_point(filename):
     				break
     			end = end + 1
 
+    print('step 4')
     # apply a four point perspective transform to both the
     # original image and grayscale image to obtain a top-down
     # birds eye view of the paper
     paper = four_point_transform(image, docCnt.reshape(4, 2))
     warped = four_point_transform(gray, docCnt.reshape(4, 2))
-
+    print('step 5')
     # apply Otsu's thresholding method to binarize the warped
     # piece of paper
     thresh = cv2.threshold(warped, 0, 255,
@@ -78,6 +79,7 @@ def calculate_point(filename):
     	cv2.CHAIN_APPROX_SIMPLE)
     cnts = cnts[0] if imutils.is_cv2() else cnts[1]
     questionCnts = []
+    print('step 6')
     # loop over the contours
     count = 0
     for c in cnts:
@@ -96,7 +98,8 @@ def calculate_point(filename):
     # the total number of correct answers
     # questionCnts = contours.sort_contours(questionCnts,
     # 	method="top-to-bottom")[0]
-
+    print(len(questionCnts))
+    print('step 7')
     correct = 0
     # each question has 5 possible answers, to loop over the
     # question in batches of 5
@@ -139,5 +142,5 @@ def calculate_point(filename):
     	if k == bubbled[1]:
     		color = (0, 255, 0)
     		correct += 1
-
+    print('step 8')
     return correct

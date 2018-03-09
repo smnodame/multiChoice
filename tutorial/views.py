@@ -96,15 +96,15 @@ def delete_question(request):
     queryset.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
-def handle_uploaded_file(user_slug, example_slug, f):
-    with open('media/{}_{}.jpg'.format(user_slug, example_slug), 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-
-@api_view(['POST', ])
-@csrf_exempt
-def upload_photo(request):
-    user_slug = str(request.POST['example_slug'])
-    example_slug = str(request.POST['user_slug'])
-    handle_uploaded_file(user_slug, example_slug, request.FILES['file'])
-    return Response(status=status.HTTP_200_OK)
+# def handle_uploaded_file(user_slug, example_slug, f):
+#     with open('media/{}_{}.jpg'.format(user_slug, example_slug), 'wb+') as destination:
+#         for chunk in f.chunks():
+#             destination.write(chunk)
+#
+# @api_view(['POST', ])
+# @csrf_exempt
+# def upload_photo(request):
+#     user_slug = str(request.POST['example_slug'])
+#     example_slug = str(request.POST['user_slug'])
+#     handle_uploaded_file(user_slug, example_slug, request.FILES['file'])
+#     return Response(status=status.HTTP_200_OK)

@@ -40,19 +40,20 @@ class GroupViewSet(viewsets.ModelViewSet):
 #         })
 
 
-def handle_uploaded_file(user_slug, example_slug, f):
-    with open('media/{}_{}.jpg'.format(user_slug, example_slug), 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
+# def handle_uploaded_file(user_slug, example_slug, f):
+
 
 @api_view(['POST', ])
 @csrf_exempt
 def upload_photo(request):
     user_slug = str(request.POST['example_slug'])
     example_slug = str(request.POST['user_slug'])
-    handle_uploaded_file(user_slug, example_slug, request.FILES['file'])
-    filename = '{}_{}.jpg'.format(user_slug, example_slug)
-    point = calculate_point('test_12.png')
-    return Response(status=200, data={
-        'point': point
-    })
+    # handle_uploaded_file(user_slug, example_slug, request.FILES['file'])
+    filename = '{}_{}2.jpg'.format(user_slug, example_slug)
+    with open('media/{}'.format(filename), 'wb+') as destination:
+        for chunk in request.FILES['file'].chunks():
+            destination.write(chunk)
+        point = calculate_point(filename)
+        return Response(status=200, data={
+            'point': point
+        })
