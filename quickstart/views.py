@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from django.conf import settings
-
+import json
 from rest_framework import viewsets
 from quickstart.serializers import UserSerializer, GroupSerializer
 from rest_framework.views import APIView
@@ -49,14 +49,13 @@ def upload_photo(request):
     user_slug = str(request.POST['user_slug'])
     example_slug = str(request.POST['example_slug'])
 
-    # form = FormChoice.objects.get(slug=example_slug)
-    # import ipdb;ipdb.set_trace()
+    form = FormChoice.objects.get(slug=example_slug)
     filename = '{}_{}.jpg'.format(user_slug, example_slug)
     name = '{}_{}'.format(user_slug, example_slug)
     with open('media/{}'.format(filename), 'wb+') as destination:
         for chunk in request.FILES['file'].chunks():
             destination.write(chunk)
-        point = calculate_point(filename, name)
+        point = calculate_point(filename, name, json.loads(str(form.answers)))
         return Response(status=200, data={
             'point': point
         })
