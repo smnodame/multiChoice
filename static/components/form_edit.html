@@ -10,6 +10,9 @@
         </div>
     </div>
   </div>
+  <div>
+    <p style="width: 100%; text-align: right; margin-right: 40px; color: red" ng-if="error">{{ error }}</p>
+  </div>
   <div class="clearfix"></div>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -44,6 +47,13 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่สอบ <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="datepicker" ng-model="form.date" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+              </div>
+            </div>
+            <div class="form-group">
               <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคำถาม <span class="required">*</span> </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input min="10" max="100"  ng-model="form.question_amount" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
@@ -55,13 +65,7 @@
                 <input  ng-model="form.subject" class="form-control col-md-7 col-xs-12" type="text" required="required" name="middle-name">
               </div>
             </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่สอบ <span class="required">*</span>
-              </label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="datepicker" ng-model="form.date" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-              </div>
-            </div>
+
             <div class="ln_solid"></div>
 
           </form>

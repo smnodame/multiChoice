@@ -143,6 +143,8 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
 }])
 
 app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+    $("#datepicker").datepicker()
+
     $scope.question_label = {
         '0': 'ก',
         '1': 'ข',
@@ -161,11 +163,15 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
             answers: JSON.stringify($scope.questions)
         })
 
-        $http.put('/question/update', data).then((res) => {
-            console.log('[submit] update ', res)
-        }).then(() => {
-            $location.url('/form/lists')
-        })
+        if(JSON.stringify($scope.questions).indexOf('""') >= 0 || JSON.stringify($scope.form).indexOf('""') >= 0) {
+            $scope.error = 'กรุณาใส่คำตอบ และเลือกคำตอบให้ครบทุกข้อ'
+        } else {
+            $http.put('/question/update', data).then((res) => {
+                console.log('[submit] update ', res)
+            }).then(() => {
+                $location.url('/form/lists')
+            })
+        }
     }
 
     $scope.changeAnswer = () => {
