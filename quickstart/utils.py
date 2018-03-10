@@ -10,7 +10,7 @@ from django.conf import settings
 from quickstart.matched import get_matched
 
 matched = get_matched()
-def calculate_point(filename):
+def calculate_point(filename, name):
     # # construct the argument parse and parse the arguments
     # ap = argparse.ArgumentParser()
     # ap.add_argument("-i", "--image", required=True,
@@ -60,7 +60,8 @@ def calculate_point(filename):
     			docCnt = approx
 
     			(x, y, w, h) = cv2.boundingRect(cnts[round + 1])
-    			if w < 1000:
+
+    			if w < 200:
     				break
     			round = round + 1
 
@@ -75,6 +76,12 @@ def calculate_point(filename):
     # piece of paper
     thresh = cv2.threshold(warped, 0, 255,
     	cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+
+    # store mask and bird view paper
+    cv2.imwrite('media/mask/{}-bird.png'.format(name), thresh)
+    cv2.imwrite('media/mask/{}-mask.png'.format(name), thresh)
+
+
     # find contours in the thresholded image, then initialize
     # the list of contours that correspond to questions
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
@@ -84,6 +91,7 @@ def calculate_point(filename):
     print('step 6')
     # loop over the contours
     count = 0
+    color = (0, 255, 0)
     for c in cnts:
     	# compute the bounding box of the contour, then use the
     	# bounding box to derive the aspect ratio
@@ -93,8 +101,11 @@ def calculate_point(filename):
     	# in order to label the contour as a question, region
     	# should be sufficiently wide, sufficiently tall, and
     	# have an aspect ratio approximately equal to 1
-    	if w >= 15 and h >= 15 and w <= 50 and h <= 50:
-    		questionCnts.append(c)
+        if w >= 15 and h >= 15 and w <= 40 and h <= 40:
+            cv2.drawContours(paper, [c], -1, color, 3)
+            questionCnts.append(c)
+
+    cv2.imwrite('media/mask/{}-circle.png'.format(name), paper)
 
     # sort the question contours top-to-bottom, then initialize
     # the total number of correct answers
@@ -147,5 +158,7 @@ def calculate_point(filename):
     	if k == bubbled[1]:
     		color = (0, 255, 0)
     		correct += 1
+
+    cv2.imwrite('media/mask/{}-answer.png'.format(name), paper)
     print('step 8')
     return correct

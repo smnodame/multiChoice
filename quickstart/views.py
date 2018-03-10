@@ -48,12 +48,12 @@ class GroupViewSet(viewsets.ModelViewSet):
 def upload_photo(request):
     user_slug = str(request.POST['example_slug'])
     example_slug = str(request.POST['user_slug'])
-    # handle_uploaded_file(user_slug, example_slug, request.FILES['file'])
-    filename = '{}_{}2.jpg'.format(user_slug, example_slug)
+    filename = '{}_{}.jpg'.format(user_slug, example_slug)
+    name = '{}_{}'.format(user_slug, example_slug)
     with open('media/{}'.format(filename), 'wb+') as destination:
         for chunk in request.FILES['file'].chunks():
             destination.write(chunk)
-        point = calculate_point(filename)
+        point = calculate_point(filename, name)
         return Response(status=200, data={
             'point': point
         })
