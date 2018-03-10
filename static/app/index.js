@@ -110,6 +110,10 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', '$loca
             $location.url('/form/lists')
         })
     }
+
+    $scope.changeAnswer = () => {
+        console.log($scope.questions)
+    }
 }])
 
 app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
@@ -158,6 +162,10 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
         }).then(() => {
             $location.url('/form/lists')
         })
+    }
+
+    $scope.changeAnswer = () => {
+        console.log($scope.questions)
     }
 }])
 
