@@ -42,15 +42,15 @@ app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function
     const question_interface = (id) => ({
         id: id,
         name: '',
-        answers: answer_interface()
+        answers: answer_interface(),
+        correct: ""
     })
 
     const answer_interface = () => {
         const answers = []
         for(let i = 0; i < answer_amount; i++) {
             answers.push({
-                name: '',
-                check: false
+                name: ''
             })
         }
         return answers
@@ -104,11 +104,15 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', '$loca
             answers: JSON.stringify($scope.questions)
         })
 
-        $http.put('/question/update', data).then((res) => {
-            console.log('[submit] update ', res)
-        }).then(() => {
-            $location.url('/form/lists')
-        })
+        if(JSON.stringify($scope.questions).indexOf('""') >= 0 || JSON.stringify($scope.form).indexOf('""') >= 0) {
+            $scope.error = 'กรุณาใส่คำตอบ และเลือกคำตอบให้ครบทุกข้อ'
+        } else {
+            $http.put('/question/update', data).then((res) => {
+                console.log('[submit] update ', res)
+            }).then(() => {
+                $location.url('/form/lists')
+            })
+        }
     }
 
     $scope.changeAnswer = () => {

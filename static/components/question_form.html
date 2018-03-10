@@ -8,9 +8,13 @@
         <div style="flex: 1" />
       <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right top_search">
           <button ng-click="update()" class="btn btn-success" style="float: right;">Update</button>
+
       </div>
     </div>
   </div>
+<div>
+  <p style="width: 100%; text-align: right; margin-right: 40px; color: red" ng-if="error">{{ error }}</p>
+</div>
   <div class="clearfix"></div>
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
