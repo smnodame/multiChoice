@@ -76,6 +76,7 @@ def calculate_point(filename, name):
     # birds eye view of the paper
     paper = four_point_transform(image, docCnt.reshape(4, 2))
     warped = four_point_transform(gray, docCnt.reshape(4, 2))
+    correct_paper = four_point_transform(image, docCnt.reshape(4, 2))
     print('step 5')
     # apply Otsu's thresholding method to binarize the warped
     # piece of paper
@@ -108,7 +109,7 @@ def calculate_point(filename, name):
     	# have an aspect ratio approximately equal to 1
         if w >= 15 and h >= 15 and w <= 40 and h <= 40:
             # if count >= 480 and count < 500:
-            #     cv2.drawContours(paper, [c], -1, color, 3)
+            cv2.drawContours(paper, [c], -1, color, 3)
             questionCnts.append(Contour(y, c))
             count = count +1
 
@@ -169,7 +170,7 @@ def calculate_point(filename, name):
     	color = (0, 0, 255)
         # # loop over the sorted contours
     	for (j, c) in enumerate(cnts):
-    		cv2.drawContours(paper, [cnts[j]], -1, color, 3)
+
     		# construct a mask that reveals only the current
     		# "bubble" for the question
     		mask = np.zeros(thresh.shape, dtype="uint8")
@@ -191,10 +192,12 @@ def calculate_point(filename, name):
     	# *correct* answer
     	k = ANSWER_KEY[q+1]
 
+        color = (0, 0, 255)
     	if k == bubbled[1]:
-    		color = (0, 255, 0)
-    		correct += 1
+            color = (0, 255, 0)
+            correct += 1
+        cv2.drawContours(correct_paper, [cnts[bubbled[1]-1]], -1, color, 3)
 
-    cv2.imwrite('media/mask/{}-answer.png'.format(name), paper)
+    cv2.imwrite('media/mask/{}-answer.png'.format(name), correct_paper)
     print('step 8')
     return correct

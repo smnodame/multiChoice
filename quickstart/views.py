@@ -51,12 +51,12 @@ def upload_photo(request):
 
     # form = FormChoice.objects.get(slug=example_slug)
     # import ipdb;ipdb.set_trace()
-    filename = '000001__2648134.png'.format(user_slug, example_slug)
-    name = '000001__2648134'.format(user_slug, example_slug)
-    # with open('media/{}'.format(filename), 'wb+') as destination:
-    #     for chunk in request.FILES['file'].chunks():
-    #         destination.write(chunk)
-    point = calculate_point(filename, name)
-    return Response(status=200, data={
-        'point': point
-    })
+    filename = '{}_{}.jpg'.format(user_slug, example_slug)
+    name = '{}_{}'.format(user_slug, example_slug)
+    with open('media/{}'.format(filename), 'wb+') as destination:
+        for chunk in request.FILES['file'].chunks():
+            destination.write(chunk)
+        point = calculate_point(filename, name)
+        return Response(status=200, data={
+            'point': point
+        })
