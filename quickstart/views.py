@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from .utils import calculate_point
-from tutorial.models import FormChoice
+from tutorial.models import FormChoice, Student, Point
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -56,6 +56,10 @@ def upload_photo(request):
         for chunk in request.FILES['file'].chunks():
             destination.write(chunk)
         point = calculate_point(filename, name, json.loads(str(form.answers)))
+        s = Student.objects.get(slug=user_slug)
+        f = FormChoice.objects.get(slug=example_slug)
+
+        Point.objects.update_or_create(slug=name, student=s, form=f, point=str(point))
         return Response(status=200, data={
             'point': point
         })

@@ -49,3 +49,10 @@ class Student(models.Model):
 
     def __unicode__(self):
         return u'{} {}'.format(self.firstname, self.lastname)
+
+
+class Point(models.Model):
+    slug = models.CharField(max_length=500, primary_key=True)
+    point = models.CharField(max_length=20)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    form = models.ForeignKey(FormChoice, on_delete=models.CASCADE)
