@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from .utils import calculate_point
-
+from tutorial.models import FormChoice
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -46,14 +46,17 @@ class GroupViewSet(viewsets.ModelViewSet):
 @api_view(['POST', ])
 @csrf_exempt
 def upload_photo(request):
-    user_slug = str(request.POST['example_slug'])
-    example_slug = str(request.POST['user_slug'])
-    filename = '{}_{}.jpg'.format(user_slug, example_slug)
-    name = '{}_{}'.format(user_slug, example_slug)
-    with open('media/{}'.format(filename), 'wb+') as destination:
-        for chunk in request.FILES['file'].chunks():
-            destination.write(chunk)
-        point = calculate_point(filename, name)
-        return Response(status=200, data={
-            'point': point
-        })
+    user_slug = str(request.POST['user_slug'])
+    example_slug = str(request.POST['example_slug'])
+
+    form = FormChoice.objects.get(slug=example_slug)
+    import ipdb;ipdb.set_trace()
+    filename = 'test_12.png'.format(user_slug, example_slug)
+    name = 'test_12'.format(user_slug, example_slug)
+    # with open('media/{}'.format(filename), 'wb+') as destination:
+    #     for chunk in request.FILES['file'].chunks():
+    #         destination.write(chunk)
+    point = calculate_point(filename, name)
+    return Response(status=200, data={
+        'point': point
+    })

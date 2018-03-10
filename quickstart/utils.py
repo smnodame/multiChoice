@@ -78,7 +78,7 @@ def calculate_point(filename, name):
     	cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
 
     # store mask and bird view paper
-    cv2.imwrite('media/mask/{}-bird.png'.format(name), thresh)
+    cv2.imwrite('media/mask/{}-bird.png'.format(name), paper)
     cv2.imwrite('media/mask/{}-mask.png'.format(name), thresh)
 
 
