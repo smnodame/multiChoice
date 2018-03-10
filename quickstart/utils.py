@@ -9,6 +9,11 @@ import ipdb
 from django.conf import settings
 from quickstart.matched import get_matched
 
+class Contour(object):
+    def __init__(self, x, cnt):
+        self.x = x
+        self.cnt = cnt
+
 matched = get_matched()
 def calculate_point(filename, name):
     # # construct the argument parse and parse the arguments
@@ -102,16 +107,22 @@ def calculate_point(filename, name):
     	# should be sufficiently wide, sufficiently tall, and
     	# have an aspect ratio approximately equal to 1
         if w >= 15 and h >= 15 and w <= 40 and h <= 40:
-            cv2.drawContours(paper, [c], -1, color, 3)
-            questionCnts.append(c)
+            # if count >= 480 and count < 500:
+            #     cv2.drawContours(paper, [c], -1, color, 3)
+            questionCnts.append(Contour(y, c))
+            count = count +1
 
+    def sort_by_x(countour):
+        return countour.x
+
+    questionCnts = sorted(questionCnts, key=sort_by_x, reverse=False)
+    questionCnts = [c.cnt for c in questionCnts]
     cv2.imwrite('media/mask/{}-circle.png'.format(name), paper)
-
-    # sort the question contours top-to-bottom, then initialize
-    # the total number of correct answers
-    # questionCnts = contours.sort_contours(questionCnts,
-    # 	method="top-to-bottom")[0]
-    print(len(questionCnts))
+    #
+    # # sort the question contours top-to-bottom, then initialize
+    # # the total number of correct answers
+    # # questionCnts = contours.sort_contours(questionCnts,
+    # # 	method="top-to-bottom")[0]
     print('step 7')
     correct = 0
 
@@ -119,7 +130,6 @@ def calculate_point(filename, name):
         raise ValueError('Wrong number of answer.')
     # each question has 5 possible answers, to loop over the
     # question in batches of 5
-    questionCnts.reverse()
 
     for (q, i) in enumerate(np.arange(0, 5, 1)):
     	# draw the outline of the correct answer on the test
@@ -127,8 +137,34 @@ def calculate_point(filename, name):
     	# left to right, then initialize the index of the
     	# bubbled answer
     	start = matched[str(i+1)]['start']
-    	# print('start : {}'.format(start))
-    	cnts = contours.sort_contours(questionCnts[start: start + 5])[0]
+        no = i+1
+        rownum = 0
+        startInRow = 0
+        if no >= 1 and no <= 25:
+            rownum = start
+            startInRow = 0
+        elif no >= 26 and no <= 50:
+            rownum = start - 5
+            startInRow = 5
+        elif no >= 51 and no <= 75:
+            rownum = start - 10
+            startInRow = 10
+        elif no >= 76 and no <= 100:
+            rownum = start - 15
+            startInRow = 15
+        cnts = []
+        rowCnts = questionCnts[rownum: rownum + 20]
+        for c in rowCnts:
+            (x, y, w, h) = cv2.boundingRect(c)
+            cnts.append(Contour(x, c))
+
+        cnts = sorted(cnts, key=sort_by_x, reverse=False)
+        cnts = cnts[startInRow: startInRow + 5]
+        cnts = [c.cnt for c in cnts]
+        # for c in cnts:
+        #     cv2.drawContours(paper, [c], -1, color, 3)
+        # cv2.imwrite('media/mask/{}-answer.png'.format(name), paper)
+
     	bubbled = None
     	color = (0, 0, 255)
         # # loop over the sorted contours
