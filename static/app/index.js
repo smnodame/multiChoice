@@ -180,8 +180,17 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
 }])
 
 app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-    $http.get('/student/?year=2018&level=ประถม&grade=1&room=1').then((res) => {
-        $scope.students = res.data
-        console.log('[student_list_ctrl] ', res.data)
-    })
+    $scope.year = ""
+    $scope.level = ""
+    $scope.grade = ""
+    $scope.room = ""
+    $scope.firstname = ""
+    $scope.lastname = ""
+    
+    $scope.search = () => {
+        $http.get(`/student/?year=${$scope.year}&level=${$scope.level}&grade=${$scope.grade}&room=${$scope.room}&firstname=${$scope.firstname}&lastname=${$scope.lastname}`).then((res) => {
+            $scope.students = res.data
+            console.log('[student_list_ctrl] ', res.data)
+        })
+    }
 }])

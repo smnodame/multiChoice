@@ -45,7 +45,27 @@ def get_question(request):
 @api_view(['GET', ])
 @csrf_exempt
 def get_student(request):
-    queryset = Student.objects.filter(year=request.GET["year"], grade=request.GET["grade"], level=request.GET["level"], room=request.GET["room"])
+    queryset = Student.objects.all()
+
+    if request.GET.get("year", False):
+        queryset = queryset.filter(year=request.GET["year"])
+
+    if request.GET.get("grade", False):
+        queryset = queryset.filter(grade=request.GET["grade"])
+
+    if request.GET.get("level", False):
+        queryset = queryset.filter(level=request.GET["level"])
+
+    if request.GET.get("room", False):
+        queryset = queryset.filter(room=request.GET["room"])
+
+    if request.GET.get("firstname", False):
+        queryset = queryset.filter(firstname__contains=request.GET["firstname"])
+
+    if request.GET.get("lastname", False):
+        queryset = queryset.filter(lastname__contains=request.GET["lastname"])
+
+    # queryset = Student.objects.filter(year=request.GET["year"], grade=request.GET["grade"], level=request.GET["level"], room=request.GET["room"])
     serializer = StudentSerializer(queryset, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
 

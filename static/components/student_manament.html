@@ -32,17 +32,17 @@
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="form-group" style="margin-top: 10px">
-                    <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="ชื่อ">
+                    <input type="text" class="form-control" placeholder="ชื่อ" ng-model="firstname">
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="form-group" style="margin-top: 10px">
-                    <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="นามสกุล">
+                    <input type="text" class="form-control" placeholder="นามสกุล" ng-model="lastname">
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="form-group" style="margin-top: 10px">
-                    <select class="form-control">
+                <div class="form-group" style="margin-top: 10px" >
+                    <select class="form-control" ng-model="level">
                             <option value="">ระดับชั้น</option>
                             <option>ประถม</option>
                             <option>มัธยม</option>
@@ -50,8 +50,8 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="form-group" style="margin-top: 10px">
-                    <select class="form-control">
+                <div class="form-group" style="margin-top: 10px" >
+                    <select class="form-control" ng-model="grade">
                             <option value="">ชั้น</option>
                             <option>1</option>
                             <option>2</option>
@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="form-group" style="margin-top: 10px">
-                    <select class="form-control">
+                    <select class="form-control" ng-model="room">
                         <option value="">ห้องเรียน</option>
                         <option>1</option>
                         <option>2</option>
@@ -77,14 +77,14 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="form-group" style="margin-top: 10px">
-                    <select class="form-control">
+                    <select class="form-control" ng-model="year">
                         <option value="">ปีการศึกษา</option>
                         <option>2018</option>
                     </select>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
-                <button style="margin-top: 10px" type="button" class="btn btn-success">ค้นหา</button>
+                <button style="margin-top: 10px" type="button" class="btn btn-success" ng-click="search()">ค้นหา</button>
             </div>
          </div>
      </div>
