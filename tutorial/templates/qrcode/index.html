@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student QRCODE</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+      body {
+          background: rgb(204,204,204);
+      }
+    page {
+      background: white;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 0.5cm;
+      box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    }
+    page[size="A4"] {
+      width: 21cm;
+      min-height: 29.7cm;
+    }
+    @media print {
+      body, page {
+        margin: 0;
+        box-shadow: 0;
+      }
+  }
+  </style>
+</head>
+
+{% verbatim %}
+<body>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <page size="A4" style="padding: 15px">
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+                <div style=" margin: auto;">
+                    <qr text="qr_string" size="135"></qr>
+                </div>
+                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
+                <p style="text-align: center">boonprakit chaikaew</p>
+            </div>
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+                <div style=" margin: auto;">
+                    <qr text="qr_string" size="135"></qr>
+                </div>
+                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
+                <p style="text-align: center">boonprakit chaikaew</p>
+            </div>
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+                <div style=" margin: auto;">
+                    <qr text="qr_string" size="135"></qr>
+                </div>
+                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
+                <p style="text-align: center">boonprakit chaikaew</p>
+            </div>
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+                <div style=" margin: auto;">
+                    <qr text="qr_string" size="135"></qr>
+                </div>
+                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
+                <p style="text-align: center">boonprakit chaikaew</p>
+            </div>
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+                <div style=" margin: auto;">
+                    <qr text="qr_string" size="135"></qr>
+                </div>
+                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
+                <p style="text-align: center">boonprakit chaikaew</p>
+            </div>
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+                <div style=" margin: auto;">
+                    <qr text="qr_string" size="135"></qr>
+                </div>
+                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
+                <p style="text-align: center">boonprakit chaikaew</p>
+            </div>
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+                <div style=" margin: auto;">
+                    <qr text="qr_string" size="135"></qr>
+                </div>
+                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
+                <p style="text-align: center">boonprakit chaikaew</p>
+            </div>
+        </page>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <!-- qr code  -->
+    <script src="http://192.168.1.39:8000/static/bower_components/qrcode/lib/qrcode.min.js"></script>
+    <script src="http://192.168.1.39:8000/static/bower_components/angular-qr/angular-qr.min.js"></script>
+
+    <script>
+    var app = angular.module('myApp', ["ja.qr"]);
+    app.controller('myCtrl', function($scope) {
+        $scope.qr_string = "John"
+    });
+    </script>
+</body>
+
+</html>
+{% endverbatim %}

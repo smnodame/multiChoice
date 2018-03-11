@@ -179,6 +179,10 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
     }
 }])
 
+app.controller('qrcode_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+    console.log('===========')
+}])
+
 app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
     $scope.year = ""
     $scope.level = ""

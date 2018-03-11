@@ -16,6 +16,9 @@ from tutorial.models import FormChoice, Student, Point
 def index(request):
     return render(request, 'tutorial/index.html')
 
+def qrcode(request):
+    return render(request, 'qrcode/index.html')
+    
 @api_view(['POST', ])
 @csrf_exempt
 def create_question(request):
