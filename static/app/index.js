@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["ngRoute"])
+var app = angular.module("myApp", ["ngRoute", "ja.qr"])
 app.config(function($routeProvider) {
     $routeProvider
     .when("/form/create", {
@@ -186,11 +186,13 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
     $scope.room = ""
     $scope.firstname = ""
     $scope.lastname = ""
-    
+
     $scope.search = () => {
         $http.get(`/student/?year=${$scope.year}&level=${$scope.level}&grade=${$scope.grade}&room=${$scope.room}&firstname=${$scope.firstname}&lastname=${$scope.lastname}`).then((res) => {
             $scope.students = res.data
             console.log('[student_list_ctrl] ', res.data)
         })
     }
+
+    $scope.qr_string = 'hello'
 }])
