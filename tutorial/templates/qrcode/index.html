@@ -40,54 +40,12 @@
 
     <div ng-app="myApp" ng-controller="myCtrl">
         <page size="A4" style="padding: 15px">
-            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
+            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px" ng-repeat="student in students">
                 <div style=" margin: auto;">
-                    <qr text="qr_string" size="135"></qr>
+                    <qrcode data="{{student.text}}" size="135"></qrcode>
                 </div>
-                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
-                <p style="text-align: center">boonprakit chaikaew</p>
-            </div>
-            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
-                <div style=" margin: auto;">
-                    <qr text="qr_string" size="135"></qr>
-                </div>
-                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
-                <p style="text-align: center">boonprakit chaikaew</p>
-            </div>
-            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
-                <div style=" margin: auto;">
-                    <qr text="qr_string" size="135"></qr>
-                </div>
-                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
-                <p style="text-align: center">boonprakit chaikaew</p>
-            </div>
-            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
-                <div style=" margin: auto;">
-                    <qr text="qr_string" size="135"></qr>
-                </div>
-                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
-                <p style="text-align: center">boonprakit chaikaew</p>
-            </div>
-            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
-                <div style=" margin: auto;">
-                    <qr text="qr_string" size="135"></qr>
-                </div>
-                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
-                <p style="text-align: center">boonprakit chaikaew</p>
-            </div>
-            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
-                <div style=" margin: auto;">
-                    <qr text="qr_string" size="135"></qr>
-                </div>
-                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
-                <p style="text-align: center">boonprakit chaikaew</p>
-            </div>
-            <div style="margin-bottom: 15px; width: 20%; height: 200px; float:left; padding: 5px; margin: 15px">
-                <div style=" margin: auto;">
-                    <qr text="qr_string" size="135"></qr>
-                </div>
-                <p style="text-align: center;     margin-bottom: 2px;"><strong>000001</strong></p>
-                <p style="text-align: center">boonprakit chaikaew</p>
+                <p style="text-align: center;margin-bottom: 2px;"><strong>{{ student.slug }}</strong></p>
+                <p style="text-align: center">{{ student.name }}</p>
             </div>
         </page>
     </div>
@@ -95,13 +53,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
     <!-- qr code  -->
-    <script src="http://192.168.1.39:8000/static/bower_components/qrcode/lib/qrcode.min.js"></script>
-    <script src="http://192.168.1.39:8000/static/bower_components/angular-qr/angular-qr.min.js"></script>
+    <script src="http://192.168.1.39:8000/static/node_modules/qrcode-generator/qrcode.js"></script>
+    <script src="http://192.168.1.39:8000/static/node_modules/qrcode-generator/qrcode_UTF8.js"></script>
+    <script src="http://192.168.1.39:8000/static/node_modules/angular-qrcode/angular-qrcode.js"></script>
 
     <script>
-    var app = angular.module('myApp', ["ja.qr"]);
+    var app = angular.module('myApp', ["monospaced.qrcode"]);
     app.controller('myCtrl', function($scope) {
         $scope.qr_string = "John"
+        const text_student_list = localStorage.getItem("qr_list")
+        $scope.students = JSON.parse(text_student_list)
+        console.log($scope.students)
+        window.print()
     });
     </script>
 </body>

@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["ngRoute", "ja.qr"])
+var app = angular.module("myApp", ["ngRoute"])
 app.config(function($routeProvider) {
     $routeProvider
     .when("/form/create", {
@@ -205,6 +205,22 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
                 return Object.assign(student, { is_checked: false }, {})
             })
         }
+    }
+
+    $scope.get_qr = () => {
+        const students = $scope.students.filter((student) => {
+            return !!student.is_checked
+        }).map((student) => {
+            const obj = {
+                slug: student.slug,
+                name: student.firstname + ' ' + student.lastname
+            }
+            return Object.assign(obj, {
+                text: JSON.stringify(obj)
+            }, {})
+        })
+        localStorage.setItem("qr_list", JSON.stringify(students))
+        window.open('/qrcode','_blank');
     }
 
     $scope.on_click_one = (is_checked) => {

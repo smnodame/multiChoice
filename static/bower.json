@@ -1,0 +1,21 @@
+{
+  "name": "tutorial",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "boonprakit <boonprakit@proteus-tech.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/smnodame/multiChoice",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-qr": "^0.2.0",
+    "qrcode-generator": "git://github.com/monospaced/bower-qrcode-generator.git#v0.2.0"
+  }
+}
