@@ -2,7 +2,7 @@
 
   <div class="page-title">
     <div class="title_left">
-      <h3>Exercise Lists</h3>
+      <h3>คลังข้อสอบ</h3>
     </div>
     <div class="title_right">
       <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right top_search">
@@ -15,7 +15,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Manage your exercise <small>Update detail for the exercise</small></h2>
+          <h2>จัดการข้อสอบ <small>สามารถเลือกจัดการข้อสอบ</small></h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -24,12 +24,12 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Subject</th>
-                        <th>Question amount</th>
-                        <th>Duration</th>
-                        <th>Testing date</th>
-                        <th>DOWNLOAD</th>
+                        <th>ชื่อ</th>
+                        <th>วิชา</th>
+                        <th>จำนวน</th>
+                        <th>ระยะเวลา</th>
+                        <th>วันที่สอบ</th>
+                        <th>ดาวน์โหลด</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -43,11 +43,11 @@
                         <td>{{ form.date }}</td>
                         <td>
                             <button type="button" class="btn btn-info">PDF</button>
-                            <button type="button" class="btn btn-success">PRINT</button>
+                            <button type="button" class="btn btn-success">พิมพ์</button>
                         </td>
                         <td>
-                            <button type="button" ng-click="update(form.slug)" class="btn btn-warning">EDIT</button>
-                            <button type="button" ng-click="delete(form.slug)" class="btn btn-danger">DEL</button>
+                            <button type="button" ng-click="update(form.slug)" class="btn btn-warning">เเก้ไข</button>
+                            <button type="button" ng-click="delete(form.slug)" class="btn btn-danger">ลบ</button>
                         </td>
                     </tr>
                 </tbody>
