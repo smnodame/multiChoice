@@ -116,7 +116,7 @@
             <thead>
               <tr class="headings">
                 <th>
-                  <input type="checkbox" id="check-all" class="flat">
+                  <input type="checkbox" id="check-all" class="flat" ng-model="check_all" ng-change="on_click_all()">
                 </th>
                 <th class="column-title">Student ID </th>
                 <th class="column-title">First name </th>
@@ -132,7 +132,7 @@
             <tbody>
               <tr class="even pointer" ng-repeat="student in students">
                 <td class="a-center ">
-                  <input type="checkbox" class="flat" name="table_records">
+                  <input type="checkbox" class="flat" name="table_records" ng-model="student.is_checked" ng-change="on_click_one(student.is_checked)">
                 </td>
                 <td class=" ">{{ student.slug }}</td>
                 <td class=" ">{{ student.firstname }}</td>

@@ -179,10 +179,6 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
     }
 }])
 
-app.controller('qrcode_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-    console.log('===========')
-}])
-
 app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
     $scope.year = ""
     $scope.level = ""
@@ -194,9 +190,34 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
     $scope.search = () => {
         $http.get(`/student/?year=${$scope.year}&level=${$scope.level}&grade=${$scope.grade}&room=${$scope.room}&firstname=${$scope.firstname}&lastname=${$scope.lastname}`).then((res) => {
             $scope.students = res.data
+            $scope.check_all = false
             console.log('[student_list_ctrl] ', res.data)
         })
     }
 
-    $scope.qr_string = 'hello'
+    $scope.on_click_all = () => {
+        if($scope.check_all) {
+            $scope.students = $scope.students.map((student) => {
+                return Object.assign(student, { is_checked: true }, {})
+            })
+        } else {
+            $scope.students = $scope.students.map((student) => {
+                return Object.assign(student, { is_checked: false }, {})
+            })
+        }
+    }
+
+    $scope.on_click_one = (is_checked) => {
+        if(!is_checked) {
+            $scope.check_all = false
+        } else {
+            const students = $scope.students.filter((student) => {
+                return !!student.is_checked
+            })
+
+            if(students.length == $scope.students.length) {
+                $scope.check_all = true
+            }
+        }
+    }
 }])
