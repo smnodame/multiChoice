@@ -21,7 +21,8 @@ app.config(function($routeProvider) {
         templateUrl : "static/components/student_manament.html",
         controller: 'student_list_ctrl'
     })
-});
+    .otherwise({redirectTo : '/form/lists'})
+})
 
 app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
     $( "#datepicker" ).datepicker()
