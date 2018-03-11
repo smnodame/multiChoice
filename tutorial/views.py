@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import serializers
 
-from tutorial.models import FormChoice, Student
+from tutorial.models import FormChoice, Student, Point
 
 def index(request):
     return render(request, 'tutorial/index.html')
@@ -84,6 +84,13 @@ class FormSerializer(serializers.Serializer):
     date = serializers.CharField(max_length=50)
     answers = serializers.CharField(max_length=5000000)
 
+class PointSerializer(serializers.ModelSerializer):
+    student = StudentSerializer(required=True)
+
+    class Meta:
+        model = Point
+        fields = ('point', 'slug', 'student', )
+
 @api_view(['GET', ])
 def get_forms(request):
     queryset = FormChoice.objects.all()
@@ -96,15 +103,8 @@ def delete_question(request):
     queryset.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
-# def handle_uploaded_file(user_slug, example_slug, f):
-#     with open('media/{}_{}.jpg'.format(user_slug, example_slug), 'wb+') as destination:
-#         for chunk in f.chunks():
-#             destination.write(chunk)
-#
-# @api_view(['POST', ])
-# @csrf_exempt
-# def upload_photo(request):
-#     user_slug = str(request.POST['example_slug'])
-#     example_slug = str(request.POST['user_slug'])
-#     handle_uploaded_file(user_slug, example_slug, request.FILES['file'])
-#     return Response(status=status.HTTP_200_OK)
+@api_view(['GET', ])
+def get_point(request):
+    point_lists = Point.objects.filter(form__slug=request.GET["slug"])
+    serializer = PointSerializer(point_lists, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
