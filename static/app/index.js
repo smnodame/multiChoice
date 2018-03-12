@@ -188,6 +188,14 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
     $scope.firstname = ""
     $scope.lastname = ""
 
+    $scope.view_point = (slug) => {
+        $http.get(`/point_student?slug=${slug}`).then((res) => {
+            $scope.points = res.data || []
+            $("#myModal").modal()
+        })
+
+    }
+
     $scope.search = () => {
         $http.get(`/student/?year=${$scope.year}&level=${$scope.level}&grade=${$scope.grade}&room=${$scope.room}&firstname=${$scope.firstname}&lastname=${$scope.lastname}`).then((res) => {
             $scope.students = res.data
