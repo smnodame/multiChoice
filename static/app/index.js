@@ -189,11 +189,17 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
     $scope.lastname = ""
 
     $scope.view_point = (slug) => {
+        $scope.student_slug = slug
         $http.get(`/point_student?slug=${slug}`).then((res) => {
             $scope.points = res.data || []
             $("#myModal").modal()
         })
 
+    }
+
+    $scope.view_paper = (form_slug) => {
+        $scope.form_slug = form_slug
+        window.open(`/static/mask/${$scope.student_slug}_${$scope.form_slug}-answer.png`,'_blank');
     }
 
     $scope.search = () => {

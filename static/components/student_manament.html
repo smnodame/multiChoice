@@ -130,7 +130,7 @@
                 <td class=" ">{{ student.slug }}</td>
                 <td class=" ">{{ student.firstname }}</td>
                 <td class=" ">{{ student.lastname }}</td>
-                <td class=" last"><a style="cursor: default"data-toggle="modal" ng-click="view_point(student.slug)" >ดูคะแนน</a>
+                <td class=" last"><a style="cursor: default" data-toggle="modal" ng-click="view_point(student.slug)" >ดูคะแนน</a>
                 </td>
               </tr>
             </tbody>
@@ -164,7 +164,7 @@
                           <td>{{ point.form.subject }}</td>
                           <td>{{ point.form.question_amount }}</td>
                           <td>{{ point.point }}</td>
-                          <td>ดูกระดาษคำตอบ</td>
+                          <td><a style="cursor: default" ng-click="view_paper(point.form.slug)">ดูกระดาษคำตอบ</td>
                         </tr>
                       </tbody>
                     </table>
