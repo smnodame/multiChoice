@@ -18,7 +18,7 @@ def index(request):
 
 def qrcode(request):
     return render(request, 'qrcode/index.html')
-    
+
 @api_view(['POST', ])
 @csrf_exempt
 def create_question(request):
@@ -109,10 +109,11 @@ class FormSerializer(serializers.Serializer):
 
 class PointSerializer(serializers.ModelSerializer):
     student = StudentSerializer(required=True)
+    form = FormSerializer(required=True)
 
     class Meta:
         model = Point
-        fields = ('point', 'slug', 'student', )
+        fields = ('point', 'slug', 'student', 'form')
 
 @api_view(['GET', ])
 def get_forms(request):
@@ -129,5 +130,11 @@ def delete_question(request):
 @api_view(['GET', ])
 def get_point(request):
     point_lists = Point.objects.filter(form__slug=request.GET["slug"])
+    serializer = PointSerializer(point_lists, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+
+@api_view(['GET', ])
+def get_point_form_student(request):
+    point_lists = Point.objects.filter(student__slug=request.GET["slug"])
     serializer = PointSerializer(point_lists, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")

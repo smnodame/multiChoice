@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^question/', tt_views.get_question, name='get_question'),
     url(r'^student/', tt_views.get_student, name='get_student'),
 
+    url(r'^point_student', tt_views.get_point_form_student, name='get_point_form_student'),
     url(r'^point', tt_views.get_point, name='get_point'),
 ] + static(settings.STATIC_URL)
