@@ -31,6 +31,9 @@
         margin: 0;
         box-shadow: 0;
       }
+      #printPageButton {
+          display: none;
+      }
   }
   </style>
 </head>
@@ -49,7 +52,12 @@
             </div>
         </page>
     </div>
-
+    <button type="button" class="btn btn-success"
+        id="printPageButton"
+        style="margin: 15px;
+            position: fixed;
+            top: 0;
+            right: 0;" onclick="print()">ดาวน์โหลด หรือ พิมพ์</button>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
     <!-- qr code  -->
@@ -64,7 +72,10 @@
         const text_student_list = localStorage.getItem("qr_list")
         $scope.students = JSON.parse(text_student_list)
         console.log($scope.students)
-        window.print()
+
+        $scope.print = () => {
+            window.print()
+        }
     });
     </script>
 </body>
