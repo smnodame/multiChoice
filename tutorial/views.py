@@ -22,17 +22,9 @@ def qrcode(request):
 
 def form_pdf(request):
     data = model_to_dict(FormChoice.objects.get(slug='_2648134'))
-    label = {
-        '1': 'a',
-        '2': 'b',
-        '3': 'c',
-        '4': 'd',
-        '5': 'e'
-    }
     return render(request, 'form_pdf/index.html', {
         'data': data,
-        'answers': json.loads(data['answers']),
-        'label': label
+        'answers': json.loads(data['answers'])
     })
 
 @api_view(['POST', ])
