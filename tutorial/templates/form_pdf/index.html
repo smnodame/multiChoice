@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <style>
+            body {
+                background: rgb(204,204,204);
+            }
+          page {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+          }
+          page[size="A4"] {
+            width: 21cm;
+            min-height: 29.7cm;
+          }
+          @media print {
+            body, page {
+              margin: 0;
+              box-shadow: 0;
+            }
+            #printPageButton {
+                display: none;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <page size="A4" style="padding: 15px">
+            <div style="padding: 25px;
+                margin-bottom: 25px;
+                border: 1px solid #eee;
+                border-radius: 10px;">
+                <div style="text-align: center;">
+                    <p style="font-size: 20px;"><strong>{{ data.name }}</strong></p>
+                    <p>รายละเอียด {{ data.description }}</p>
+                    <p>เวลาในการทำข้อสอบ {{ data.time }}</p>
+                    <p>วิชา {{ data.subject }}</p>
+                    <p>วันที่สอบ {{ data.date }}</p>
+                </div>
+
+            </div>
+            <div style="margin-left: 25px">
+                <p style="margin-bottom: 25px"><strong>คำชี้แจง</strong> ข้อสอบปรนัย {{ data.question_amount }} ข้อ</p>
+                {% for answer in answers %}
+                    <div style="margin-bottom: 30px; margin-left: 25px">
+                        <p>{{ forloop.counter }}. {{ answer.name }}</p>
+                        {% for choice in answer.answers %}
+                            <p style="margin-left: 30px">{{ forloop.counter }}. {{ choice.name }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </body>
+</html>

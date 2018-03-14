@@ -19,6 +19,8 @@ router.register(r'groups', qs_views.GroupViewSet)
 urlpatterns = [
     url(r'^$', tt_views.index, name='index'),
     url(r'^qrcode', tt_views.qrcode, name='qrcode'),
+    url(r'^form-pdf', tt_views.form_pdf, name='form_pdf'),
+    
     url(r'^url/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

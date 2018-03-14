@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.forms.models import model_to_dict
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -18,6 +19,21 @@ def index(request):
 
 def qrcode(request):
     return render(request, 'qrcode/index.html')
+
+def form_pdf(request):
+    data = model_to_dict(FormChoice.objects.get(slug='_2648134'))
+    label = {
+        '1': 'a',
+        '2': 'b',
+        '3': 'c',
+        '4': 'd',
+        '5': 'e'
+    }
+    return render(request, 'form_pdf/index.html', {
+        'data': data,
+        'answers': json.loads(data['answers']),
+        'label': label
+    })
 
 @api_view(['POST', ])
 @csrf_exempt
