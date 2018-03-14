@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'tutorial',
 ]
 
+DEFAULT_CHARSET='utf-8'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

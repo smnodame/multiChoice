@@ -35,6 +35,7 @@
         </style>
     </head>
     <body>
+        {% load lower %}
         <page size="A4" style="padding: 15px">
             <div style="padding: 25px;
                 margin-bottom: 25px;
@@ -55,7 +56,7 @@
                     <div style="margin-bottom: 30px; margin-left: 25px">
                         <p>{{ forloop.counter }}. {{ answer.name }}</p>
                         {% for choice in answer.answers %}
-                            <p style="margin-left: 30px">{{ forloop.counter }}. {{ choice.name }}</p>
+                            <p style="margin-left: 30px">{{ 'label'|lower:forloop.counter }}. {{ choice.name }}</p>
                         {% endfor %}
                     </div>
                 {% endfor %}
