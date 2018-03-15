@@ -9,6 +9,7 @@ class FormChoice(models.Model):
     description = models.CharField(max_length=5000)
     time = models.CharField(max_length=5000)
     question_amount = models.IntegerField()
+    answer_amount = models.IntegerField()
     subject = models.CharField(max_length=5000)
     date = models.CharField(max_length=50)
     answers = models.TextField()

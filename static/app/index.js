@@ -65,7 +65,7 @@ const get_questions = (question_amount, answer_amount) => {
 app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
     $( "#datepicker" ).datepicker()
 
-    const answer_amount = 5
+    $scope.answer_amount = 4
 
     $scope.submit = () => {
         const slug = ID(8)
@@ -76,9 +76,10 @@ app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function
                 description : $scope.description,
                 time : $scope.time,
                 question_amount : $scope.question_amount,
+                answer_amount : $scope.answer_amount,
                 subject : $scope.subject,
                 date : $scope.date,
-                answers: JSON.stringify(get_questions($scope.question_amount, answer_amount))
+                answers: JSON.stringify(get_questions($scope.question_amount, $scope.answer_amount))
         }
 
         $http.post('/question/create', data).then((res) => {

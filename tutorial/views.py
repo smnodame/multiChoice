@@ -45,6 +45,7 @@ def create_question(request):
         description = request.data.get("description", ""),
         time = request.data.get("time", ""),
         question_amount = request.data.get("question_amount", 10),
+        answer_amount = request.data.get("answer_amount", 4),
         subject = request.data.get("subject", ""),
         date = request.data.get("date", ""),
         answers = request.data.get("answers", "")
