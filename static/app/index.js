@@ -134,6 +134,10 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
         $location.url('/form/'+ id +'/edit')
     }
 
+    $scope.load_pdf = (slug) => {
+        window.open('/send-pdf?slug='+slug)
+    }
+    
     $scope.delete = (id) => {
         $http.delete('/question/delete?slug='+ id).then((res) => {
             console.log('[submit] delete ', res)

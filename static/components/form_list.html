@@ -42,8 +42,7 @@
                         <td>{{ form.time }}</td>
                         <td>{{ form.date }}</td>
                         <td>
-                            <button type="button" class="btn btn-info">PDF</button>
-                            <button type="button" class="btn btn-success">พิมพ์</button>
+                            <button type="button" class="btn btn-info" ng-click="load_pdf(form.slug)">PDF</button>
                         </td>
                         <td>
                             <button type="button" ng-click="update(form.slug)" class="btn btn-warning">เเก้ไข</button>
