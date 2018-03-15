@@ -25,7 +25,7 @@ app.config(function($routeProvider) {
 })
 
 app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
-    // $( "#datepicker" ).datepicker()
+    $( "#datepicker" ).datepicker()
     const question_amount = 10
     const answer_amount = 4
 
@@ -179,7 +179,7 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
 }])
 
 app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-    // $("#datepicker").datepicker()
+    $("#datepicker").datepicker()
 
     $scope.question_label = {
         '0': 'ก',
