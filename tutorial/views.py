@@ -1,4 +1,5 @@
 import json
+import pdfkit
 
 from django.core import serializers
 from django.http import HttpResponse
@@ -6,6 +7,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
+from django.conf import settings
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -20,8 +22,15 @@ def index(request):
 def qrcode(request):
     return render(request, 'qrcode/index.html')
 
+def send_pdf(request):
+    pdf = pdfkit.from_url("http://192.168.1.39:8000/form-pdf?slug={}".format(request.GET.get("slug")), False)
+    response = HttpResponse(pdf,content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="example_file.pdf"'
+
+    return response
+
 def form_pdf(request):
-    data = model_to_dict(FormChoice.objects.get(slug='_2648134'))
+    data = model_to_dict(FormChoice.objects.get(slug=request.GET.get("slug")))
     return render(request, 'form_pdf/index.html', {
         'data': data,
         'answers': json.loads(data['answers'])
