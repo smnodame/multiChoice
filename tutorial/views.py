@@ -99,6 +99,7 @@ def update_question(request):
         description = request.data.get("description", ""),
         time = request.data.get("time", ""),
         question_amount = request.data.get("question_amount", 10),
+        answer_amount = request.data.get("answer_amount", 4),
         subject = request.data.get("subject", ""),
         date = request.data.get("date", ""),
         answers = request.data.get("answers", "")
@@ -121,6 +122,7 @@ class FormSerializer(serializers.Serializer):
     description = serializers.CharField(max_length=5000)
     time = serializers.CharField(max_length=5000)
     question_amount = serializers.IntegerField()
+    answer_amount = serializers.IntegerField()
     subject = serializers.CharField(max_length=5000)
     date = serializers.CharField(max_length=50)
     answers = serializers.CharField(max_length=5000000)

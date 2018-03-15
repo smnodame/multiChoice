@@ -185,22 +185,59 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
     $("#datepicker").datepicker()
     const answer_amount = 5
 
-    $scope.change_amount_number = () => {
-        if(!$scope.new_amount_number) {
+    $scope.change_question_number = () => {
+        if(!$scope.new_question_number) {
             alert('จำนวนคำตอบควรควรอยู่ในช่วง 0-100')
             return
         }
-        if($scope.new_amount_number != $scope.form.question_amount) {
-            if($scope.new_amount_number > $scope.form.question_amount) {
-                const diff = parseInt($scope.new_amount_number) - parseInt($scope.form.question_amount)
+        if($scope.new_question_number != $scope.form.question_amount) {
+            if($scope.new_question_number > $scope.form.question_amount) {
+                const diff = parseInt($scope.new_question_number) - parseInt($scope.form.question_amount)
                 const new_questions = get_questions(diff, answer_amount)
                 $scope.questions = $scope.questions.concat(new_questions)
-                $scope.form.question_amount = $scope.new_amount_number
+                $scope.form.question_amount = $scope.new_question_number
             } else {
                 $scope.questions = $scope.questions.filter((d, index) => {
-                    return index + 1 <= $scope.new_amount_number
+                    return index + 1 <= $scope.new_question_number
                 })
-                $scope.form.question_amount = $scope.new_amount_number
+                $scope.form.question_amount = $scope.new_question_number
+            }
+        }
+    }
+
+    $scope.change_answer_number = () => {
+        if(!$scope.new_answer_number) {
+            alert('จำนวนคำตอบควรควรอยู่ในช่วง 2-5')
+            return
+        }
+        if($scope.new_answer_number != $scope.form.answer_amount) {
+            console.log($scope.questions)
+            if($scope.new_answer_number > $scope.form.answer_amount) {
+                const diff = parseInt($scope.new_answer_number) - parseInt($scope.form.answer_amount)
+                let new_answer = []
+                for(var i=0;i<diff;i++) {
+                    new_answer.push({ name: "" })
+                }
+                $scope.questions = $scope.questions.map((question) => {
+                    const answers = question.answers.concat(new_answer)
+                    return Object.assign({}, question, {
+                        answers: answers
+                    })
+                })
+                $scope.form.answer_amount = $scope.new_answer_number
+            } else {
+                $scope.questions = $scope.questions.map((question) => {
+                    const answers = question.answers.filter((d, index) => {
+                        return index + 1 <= $scope.new_answer_number
+                    })
+                    if(parseInt(question.correct) > answers.length) {
+                        question.correct = ""
+                    }
+                    return Object.assign({}, question, {
+                        answers: answers
+                    })
+                })
+                $scope.form.answer_amount = $scope.new_answer_number
             }
         }
     }
@@ -215,7 +252,8 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
 
     $http.get('/question?slug='+ $routeParams.id).then((res) => {
         $scope.form = res.data
-        $scope.new_amount_number = $scope.form.question_amount
+        $scope.new_question_number = $scope.form.question_amount
+        $scope.new_answer_number = $scope.form.answer_amount
         $scope.questions = JSON.parse(res.data.answers)
     })
 

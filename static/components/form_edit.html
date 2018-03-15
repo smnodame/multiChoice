@@ -57,9 +57,20 @@
               <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคำถาม <span class="required">*</span> </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="input-group">
-                  <input min="1" max="100"  ng-value="form.question_amount" ng-model="new_amount_number" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
+                  <input min="1" max="100"  ng-value="form.question_amount" ng-model="new_question_number" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
                   <span class="input-group-btn">
-                    <button ng-click="change_amount_number()" ng-disabled="new_amount_number == form.question_amount"  class="btn btn-secondary" type="button">เเก้ไข</button>
+                    <button ng-click="change_question_number()" ng-disabled="new_question_number == form.question_amount"  class="btn btn-secondary" type="button">เเก้ไข</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคำตอบ<span class="required">*</span> </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group">
+                  <input min="2" max="5"  ng-value="form.answer_amount" ng-model="new_answer_number" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
+                  <span class="input-group-btn">
+                    <button ng-click="change_answer_number()" ng-disabled="new_answer_number == form.answer_amount"  class="btn btn-secondary" type="button">เเก้ไข</button>
                   </span>
                 </div>
               </div>
