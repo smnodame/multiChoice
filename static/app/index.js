@@ -25,7 +25,7 @@ app.config(function($routeProvider) {
 })
 
 app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
-    $( "#datepicker" ).datepicker()
+    // $( "#datepicker" ).datepicker()
     const question_amount = 10
     const answer_amount = 4
 
@@ -121,11 +121,41 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', '$loca
     }
 }])
 
-app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$location', '$compile', function ($scope, $http, $routeParams, $location, $compile) {
+
 
     const init = () => {
         $http.get('/forms').then((res) => {
             $scope.forms = res.data
+            // var myEl = angular.element( document.querySelector( '#tbody' ) )
+
+            $scope.forms.forEach((form, index) => {
+                 var tblElem = angular.element('<tr id="'+ form.slug +'">'+
+                '<th scope="row">'+ (index+1) +'</th>'+
+                '<td>'+ form.name + '</td>'+
+                '<td>'+ form.subject + '</td>'+
+                '<td>'+ form.question_amount + '</td>'+
+                '<td>'+ form.time + '</td>'+
+                '<td>'+ form.date + '</td>'+
+                '<td>'+
+                    '<button type="button" class="btn btn-info" ng-click="load_pdf(\''+ form.slug +'\')">PDF</button>'+
+                '</td>'+
+                '<td>'+
+                    '<button type="button" ng-click="update(\''+ form.slug +'\')" class="btn btn-warning">เเก้ไข</button>'+
+                    '<button type="button" ng-click="delete(\''+ form.slug +'\')" class="btn btn-danger">ลบ</button>'+
+                '</td><'+
+                '/tr>')
+
+                //create a function to generate content
+                var compileFn = $compile(tblElem);
+
+                //execute the compilation function
+                compileFn($scope)
+
+                $( "#tbody" ).append(tblElem)
+            })
+
+            $('#example').DataTable()
         })
     }
     init()
@@ -137,18 +167,20 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
     $scope.load_pdf = (slug) => {
         window.open('/send-pdf?slug='+slug)
     }
-    
+
     $scope.delete = (id) => {
         $http.delete('/question/delete?slug='+ id).then((res) => {
             console.log('[submit] delete ', res)
         }).then(() => {
-            init()
+            $( "#"+id ).remove()
         })
     }
+
+
 }])
 
 app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-    $("#datepicker").datepicker()
+    // $("#datepicker").datepicker()
 
     $scope.question_label = {
         '0': 'ก',
