@@ -56,7 +56,12 @@
             <div class="form-group">
               <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคำถาม <span class="required">*</span> </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input min="1" max="100"  ng-model="form.question_amount" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
+                <div class="input-group">
+                  <input min="1" max="100"  ng-value="form.question_amount" ng-model="new_amount_number" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
+                  <span class="input-group-btn">
+                    <button ng-click="change_amount_number()" ng-disabled="new_amount_number == form.question_amount"  class="btn btn-secondary" type="button">เเก้ไข</button>
+                  </span>
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -84,7 +89,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div style="margin-bottom: 35px">
                         <div class="input-group">
-                            <span class="input-group-addon">คำถาม {{ question.id + 1 }}</span>
+                            <span class="input-group-addon">คำถาม {{ $index + 1 }}</span>
                             <input type="text" ng-model="question.name" class="form-control" name="msg" placeholder="เพิ่มคำถาม">
                         </div>
                         <div class="input-group" ng-repeat="(index, answer) in question.answers">

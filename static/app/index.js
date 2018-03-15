@@ -24,46 +24,48 @@ app.config(function($routeProvider) {
     .otherwise({redirectTo : '/form/lists'})
 })
 
+
+
+const ID = (length) => {
+    if (!length) {
+        length = 8
+    }
+    var str = ''
+    for (var i = 1; i < length + 1; i = i + 8) {
+        str += Math.random().toString(36).substr(2, 10)
+    }
+    return ('_' + str).substr(0, length)
+}
+
+const question_interface = (id, answer_amount) => ({
+    id: id,
+    name: '',
+    answers: answer_interface(answer_amount),
+    correct: ""
+})
+
+const answer_interface = (answer_amount) => {
+    const answers = []
+    for(let i = 0; i < answer_amount; i++) {
+        answers.push({
+            name: ''
+        })
+    }
+    return answers
+}
+
+const get_questions = (question_amount, answer_amount) => {
+    const questions = []
+    for(let i = 0; i < question_amount; i++) {
+        questions.push(question_interface(i, answer_amount))
+    }
+    return questions
+}
+
 app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
     $( "#datepicker" ).datepicker()
-    const question_amount = 10
-    const answer_amount = 4
 
-    const ID = (length) => {
-        if (!length) {
-            length = 8
-        }
-        var str = ''
-        for (var i = 1; i < length + 1; i = i + 8) {
-            str += Math.random().toString(36).substr(2, 10)
-        }
-        return ('_' + str).substr(0, length)
-    }
-
-    const question_interface = (id) => ({
-        id: id,
-        name: '',
-        answers: answer_interface(),
-        correct: ""
-    })
-
-    const answer_interface = () => {
-        const answers = []
-        for(let i = 0; i < answer_amount; i++) {
-            answers.push({
-                name: ''
-            })
-        }
-        return answers
-    }
-
-    const get_questions = () => {
-        const questions = []
-        for(let i = 0; i < $scope.question_amount; i++) {
-            questions.push(question_interface(i))
-        }
-        return questions
-    }
+    const answer_amount = 5
 
     $scope.submit = () => {
         const slug = ID(8)
@@ -76,7 +78,7 @@ app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function
                 question_amount : $scope.question_amount,
                 subject : $scope.subject,
                 date : $scope.date,
-                answers: JSON.stringify(get_questions())
+                answers: JSON.stringify(get_questions($scope.question_amount, answer_amount))
         }
 
         $http.post('/question/create', data).then((res) => {
@@ -180,6 +182,27 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
 
 app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
     $("#datepicker").datepicker()
+    const answer_amount = 5
+
+    $scope.change_amount_number = () => {
+        if(!$scope.new_amount_number) {
+            alert('จำนวนคำตอบควรควรอยู่ในช่วง 0-100')
+            return
+        }
+        if($scope.new_amount_number != $scope.form.question_amount) {
+            if($scope.new_amount_number > $scope.form.question_amount) {
+                const diff = parseInt($scope.new_amount_number) - parseInt($scope.form.question_amount)
+                const new_questions = get_questions(diff, answer_amount)
+                $scope.questions = $scope.questions.concat(new_questions)
+                $scope.form.question_amount = $scope.new_amount_number
+            } else {
+                $scope.questions = $scope.questions.filter((d, index) => {
+                    return index + 1 <= $scope.new_amount_number
+                })
+                $scope.form.question_amount = $scope.new_amount_number
+            }
+        }
+    }
 
     $scope.question_label = {
         '0': 'ก',
@@ -191,6 +214,7 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
 
     $http.get('/question?slug='+ $routeParams.id).then((res) => {
         $scope.form = res.data
+        $scope.new_amount_number = $scope.form.question_amount
         $scope.questions = JSON.parse(res.data.answers)
     })
 
