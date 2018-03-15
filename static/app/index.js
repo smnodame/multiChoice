@@ -127,7 +127,6 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
     const init = () => {
         $http.get('/forms').then((res) => {
             $scope.forms = res.data
-            // var myEl = angular.element( document.querySelector( '#tbody' ) )
 
             $scope.forms.forEach((form, index) => {
                  var tblElem = angular.element('<tr id="'+ form.slug +'">'+
@@ -216,7 +215,7 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
     }
 }])
 
-app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
+app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$location', '$compile', function ($scope, $http, $routeParams, $location, $compile) {
     $scope.year = ""
     $scope.level = ""
     $scope.grade = ""
@@ -242,6 +241,30 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
         $http.get(`/student/?year=${$scope.year}&level=${$scope.level}&grade=${$scope.grade}&room=${$scope.room}&firstname=${$scope.firstname}&lastname=${$scope.lastname}`).then((res) => {
             $scope.students = res.data
             $scope.check_all = false
+
+            $("#tbody").empty()
+
+            $scope.students.forEach((student, index) => {
+                 var tblElem = angular.element('<tr class="even pointer">'+
+                    '<td class="a-center ">'+
+                    '<input type="checkbox" class="flat" name="table_records" ng-model="students['+index+'].is_checked" ng-change="on_click_one(students['+index+'].is_checked)">'+
+                    '</td>'+
+                    '<td class=" ">'+ student.slug +'</td>'+
+                    '<td class=" ">'+ student.firstname +'</td>'+
+                    '<td class=" ">'+ student.lastname +'</td>'+
+                    '<td class=" last"><a style="cursor: default" data-toggle="modal" ng-click="view_point(\''+ student.slug  + '\')" >ดูคะแนน</a>'+
+                    '</td>'+
+                    '</tr>')
+
+                //create a function to generate content
+                var compileFn = $compile(tblElem);
+
+                //execute the compilation function
+                compileFn($scope)
+
+                $( "#tbody" ).append(tblElem)
+            })
+            $('#example').DataTable()
             console.log('[student_list_ctrl] ', res.data)
         })
     }
@@ -275,6 +298,8 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
     }
 
     $scope.on_click_one = (is_checked) => {
+        console.log('[on_click_one] is_checked ', is_checked)
+        console.log($scope.students)
         if(!is_checked) {
             $scope.check_all = false
         } else {
