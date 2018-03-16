@@ -30,7 +30,7 @@ app.config(function($routeProvider) {
 })
 
 app.controller('authen', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
-    $scope.name = localStorage.getItem('name')
+    $scope.u_name = localStorage.getItem('name')
 
     $scope.logout = () => {
         localStorage.clear()
