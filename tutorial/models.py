@@ -14,6 +14,11 @@ class FormChoice(models.Model):
     date = models.CharField(max_length=50)
     answers = models.TextField()
 
+    def __str__(self):
+        return '{}'.format(self.name)
+
+    def __unicode__(self):
+        return u'{}'.format(self.name)
 
 class Student(models.Model):
     slug = models.CharField(max_length=50)
@@ -57,3 +62,9 @@ class Point(models.Model):
     point = models.CharField(max_length=20)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     form = models.ForeignKey(FormChoice, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{}'.format(self.slug)
+
+    def __unicode__(self):
+        return u'{}'.format(self.slug)
