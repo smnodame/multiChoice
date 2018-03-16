@@ -57,6 +57,23 @@
             </ul>
         </div>
         <!-- End SmartWizard Content -->
+        <div class="row">
+            <div class="col-md-8" />
+            <div class="col-md-4">
+                <ul class="pagination">
+                    <li ng-if="questions.length >= 1"><a>1</a></li>
+                    <li ng-if="questions.length >= 11"><a>2</a></li>
+                    <li ng-if="questions.length >= 21"><a>3</a></li>
+                    <li ng-if="questions.length >= 31"><a>4</a></li>
+                    <li ng-if="questions.length >= 41"><a>5</a></li>
+                    <li ng-if="questions.length >= 51"><a>6</a></li>
+                    <li ng-if="questions.length >= 61"><a>7</a></li>
+                    <li ng-if="questions.length >= 71"><a>8</a></li>
+                    <li ng-if="questions.length >= 81"><a>9</a></li>
+                    <li ng-if="questions.length >= 91"><a>10</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="row" ng-repeat="question in questions">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div style="margin-bottom: 35px">

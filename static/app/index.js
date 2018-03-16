@@ -184,6 +184,66 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
 app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
     $("#datepicker").datepicker()
     const answer_amount = 5
+    $scope.page = 1
+
+    $scope.click_page = (page) => {
+        $scope.page = page
+    }
+
+    $scope.show_question = (i) => {
+        const index = i + 1
+        if($scope.page == 1) {
+            if(index >= 1 && index <= 10) {
+                return true
+            }
+        }
+        if($scope.page == 2) {
+            if(index >= 11 && index <= 20) {
+                return true
+            }
+        }
+        if($scope.page == 3) {
+            if(index >= 21 && index <= 30) {
+                return true
+            }
+        }
+        if($scope.page == 4) {
+            if(index >= 31 && index <= 40) {
+                return true
+            }
+        }
+        if($scope.page == 5) {
+            if(index >= 41 && index <= 50) {
+                return true
+            }
+        }
+        if($scope.page == 6) {
+            if(index >= 51 && index <= 60) {
+                return true
+            }
+        }
+        if($scope.page == 7) {
+            if(index >= 61 && index <= 70) {
+                return true
+            }
+        }
+        if($scope.page == 8) {
+            if(index >= 71 && index <= 80) {
+                return true
+            }
+        }
+        if($scope.page == 9) {
+            if(index >= 81 && index <= 90) {
+                return true
+            }
+        }
+        if($scope.page == 10) {
+            if(index >= 91 && index <= 100) {
+                return true
+            }
+        }
+        return false
+    }
 
     $scope.change_question_number = () => {
         if(!$scope.new_question_number) {
@@ -202,6 +262,7 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
                 })
                 $scope.form.question_amount = $scope.new_question_number
             }
+            $scope.page = 1
         }
     }
 
