@@ -105,7 +105,7 @@
                         </div>
                         <div class="input-group" ng-repeat="(index, answer) in question.answers">
                             <span class="input-group-addon">
-                                <input type="radio" ng-model="question.correct" value={{index+1}} ng-change="changeAnswer()" name={{question.id}} aria-label="Checkbox for following text input">
+                                <input type="radio" ng-model="question.correct" value={{index+1}} ng-change="changeAnswer()" name={{$parent.$index}} aria-label="Checkbox for following text input">
                             </span>
                             <span class="input-group-addon">{{ question_label[index] }}</span>
                             <input type="text" class="form-control"  ng-model="answer.name" aria-label="Text input with checkbox">

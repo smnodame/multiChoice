@@ -193,7 +193,7 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
         if($scope.new_question_number != $scope.form.question_amount) {
             if($scope.new_question_number > $scope.form.question_amount) {
                 const diff = parseInt($scope.new_question_number) - parseInt($scope.form.question_amount)
-                const new_questions = get_questions(diff, answer_amount)
+                const new_questions = get_questions(diff, $scope.form.answer_amount)
                 $scope.questions = $scope.questions.concat(new_questions)
                 $scope.form.question_amount = $scope.new_question_number
             } else {
@@ -214,11 +214,12 @@ app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location
             console.log($scope.questions)
             if($scope.new_answer_number > $scope.form.answer_amount) {
                 const diff = parseInt($scope.new_answer_number) - parseInt($scope.form.answer_amount)
-                let new_answer = []
-                for(var i=0;i<diff;i++) {
-                    new_answer.push({ name: "" })
-                }
+
                 $scope.questions = $scope.questions.map((question) => {
+                    let new_answer = []
+                    for(var i=0;i<diff;i++) {
+                        new_answer.push({ name: "" })
+                    }
                     const answers = question.answers.concat(new_answer)
                     return Object.assign({}, question, {
                         answers: answers
