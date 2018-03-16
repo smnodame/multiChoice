@@ -91,8 +91,8 @@ def get_student(request):
     return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
 
 
+# @csrf_exempt
 @api_view(['PUT', ])
-@csrf_exempt
 def update_question(request):
     FormChoice.objects.filter(slug=request.data.get("slug", "")).update(
         name = request.data.get("name", ""),

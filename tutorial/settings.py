@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.39', '127.0.0.1']
 
-
+REST_SESSION_LOGIN = False
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,11 +44,13 @@ INSTALLED_APPS = [
 DEFAULT_CHARSET='utf-8'
 
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'tutorial.auto_auth.Middleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'tutorial.disable_csrf.DisableCSRFMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
