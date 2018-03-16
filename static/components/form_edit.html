@@ -96,24 +96,8 @@
         </div>
         <div class="x_content">
             <!-- End SmartWizard Content -->
-            <div class="row">
-                <div class="col-md-8" />
-                <div class="col-md-4">
-                    <ul class="pagination" ng-hide="questions.length <= 10">
-                        <li ng-class="{'active': page == 1}" ng-click="click_page(1)" ng-if="questions.length >= 1"><a>1</a></li>
-                        <li ng-class="{'active': page == 2}" ng-click="click_page(2)" ng-if="questions.length >= 11"><a>2</a></li>
-                        <li ng-class="{'active': page == 3}" ng-click="click_page(3)" ng-if="questions.length >= 21"><a>3</a></li>
-                        <li ng-class="{'active': page == 4}" ng-click="click_page(4)" ng-if="questions.length >= 31"><a>4</a></li>
-                        <li ng-class="{'active': page == 5}" ng-click="click_page(5)" ng-if="questions.length >= 41"><a>5</a></li>
-                        <li ng-class="{'active': page == 6}" ng-click="click_page(6)" ng-if="questions.length >= 51"><a>6</a></li>
-                        <li ng-class="{'active': page == 7}" ng-click="click_page(7)" ng-if="questions.length >= 61"><a>7</a></li>
-                        <li ng-class="{'active': page == 8}" ng-click="click_page(8)" ng-if="questions.length >= 71"><a>8</a></li>
-                        <li ng-class="{'active': page == 9}" ng-click="click_page(9)" ng-if="questions.length >= 81"><a>9</a></li>
-                        <li ng-class="{'active': page == 10}" ng-click="click_page(10)" ng-if="questions.length >= 91"><a>10</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row" ng-if="show_question($index)" ng-repeat="question in questions">
+
+            <div class="row" ng-if="show_question($index)" ng-repeat="question in questions track by $index">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div style="margin-bottom: 35px">
                         <div class="input-group">
@@ -131,7 +115,22 @@
 
                 </div>
             </div>
-
+            <div class="row">
+                <div class="text-center">
+                    <ul class="pagination" ng-hide="questions.length <= 10">
+                        <li ng-class="{'active': page == 1}" ng-click="click_page(1)" ng-if="questions.length >= 1"><a>1</a></li>
+                        <li ng-class="{'active': page == 2}" ng-click="click_page(2)" ng-if="questions.length >= 11"><a>2</a></li>
+                        <li ng-class="{'active': page == 3}" ng-click="click_page(3)" ng-if="questions.length >= 21"><a>3</a></li>
+                        <li ng-class="{'active': page == 4}" ng-click="click_page(4)" ng-if="questions.length >= 31"><a>4</a></li>
+                        <li ng-class="{'active': page == 5}" ng-click="click_page(5)" ng-if="questions.length >= 41"><a>5</a></li>
+                        <li ng-class="{'active': page == 6}" ng-click="click_page(6)" ng-if="questions.length >= 51"><a>6</a></li>
+                        <li ng-class="{'active': page == 7}" ng-click="click_page(7)" ng-if="questions.length >= 61"><a>7</a></li>
+                        <li ng-class="{'active': page == 8}" ng-click="click_page(8)" ng-if="questions.length >= 71"><a>8</a></li>
+                        <li ng-class="{'active': page == 9}" ng-click="click_page(9)" ng-if="questions.length >= 81"><a>9</a></li>
+                        <li ng-class="{'active': page == 10}" ng-click="click_page(10)" ng-if="questions.length >= 91"><a>10</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
       </div>
 
