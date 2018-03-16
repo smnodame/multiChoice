@@ -51,7 +51,7 @@
 
             </div>
             <div style="margin-left: 25px">
-                <p style="margin-bottom: 25px"><strong>คำชี้แจง</strong> ข้อสอบปรนัย {{ data.question_amount }} ข้อ</p>
+                <p style="margin-bottom: 25px"><strong>คำชี้แจง</strong> ข้อสอบปรนัย {{ data.question_amount }} ข้อ {{ data.answer_amount }} ตัวเลือก </p>
                 {% for answer in answers %}
                     <div style="margin-bottom: 30px; margin-left: 25px">
                         <p>{{ forloop.counter }}. {{ answer.name }}</p>
