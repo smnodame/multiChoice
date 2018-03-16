@@ -158,3 +158,19 @@ def get_point_form_student(request):
     point_lists = Point.objects.filter(student__slug=request.GET["slug"])
     serializer = PointSerializer(point_lists, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+
+
+@api_view(['POST', ])
+def login(request):
+    import simplejson
+    from django.contrib.auth import authenticate
+    auth = authenticate(username=request.data.get("username"), password=request.data.get("password"))
+    if auth is None:
+        return HttpResponse(status=status.HTTP_403_FORBIDDEN)
+    # import ipdb;ipdb.set_trace()
+    data = {
+        "name": "{} {}".format(auth.first_name, auth.last_name),
+        "email": auth.email,
+        "username": auth.username
+    }
+    return HttpResponse(simplejson.dumps(data), status=status.HTTP_200_OK)
