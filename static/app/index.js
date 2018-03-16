@@ -22,9 +22,22 @@ app.config(function($routeProvider) {
         controller: 'student_list_ctrl'
     })
     .otherwise({redirectTo : '/form/lists'})
+}).run(() => {
+    const active = localStorage.getItem('active')
+    if(!active) {
+        window.location = '/auth'
+    }
+    console.log('hello')
 })
 
+app.controller('authen', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+    $scope.name = localStorage.getItem('name')
 
+    $scope.logout = () => {
+        localStorage.clear()
+        window.location = '/auth'
+    }
+}])
 
 const ID = (length) => {
     if (!length) {

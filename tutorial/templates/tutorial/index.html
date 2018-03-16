@@ -39,8 +39,8 @@
   </style>
 </head>
 
-
-<body ng-app="myApp" class="nav-md">
+{% verbatim %}
+<body ng-app="myApp" class="nav-md" ng-controller="authen">
 
   <div class="container body">
 
@@ -63,7 +63,7 @@
             </div>
             <div class="profile_info">
               <span>ยินดีต้อนรับ</span>
-              <h2>John Doe</h2>
+              <h2>{{ name }}</h2>
             </div>
           </div>
           <!-- /menu prile quick info -->
@@ -100,9 +100,8 @@
 
             <ul class="nav navbar-nav navbar-right">
               <li class="">
-                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="/static/person.png" alt="">John Doe
-                  <span class=" fa fa-angle-down"></span>
+                <a style="cursor: default;" ng-click="logout()">
+                  LOG OUT
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
                   <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
@@ -172,5 +171,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
 </body>
-
+{% endverbatim %}
 </html>

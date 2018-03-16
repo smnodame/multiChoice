@@ -37,4 +37,5 @@ urlpatterns = [
     url(r'^point_student', tt_views.get_point_form_student, name='get_point_form_student'),
     url(r'^point', tt_views.get_point, name='get_point'),
     url(r'^login', tt_views.login, name='login'),
+    url(r'^auth', tt_views.auth, name='auth'),
 ] + static(settings.STATIC_URL) + static(settings.MEDIA_URL)

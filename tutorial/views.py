@@ -22,6 +22,9 @@ def index(request):
 def qrcode(request):
     return render(request, 'qrcode/index.html')
 
+def auth(request):
+    return render(request, 'auth/index.html')
+
 def send_pdf(request):
     pdf = pdfkit.from_url("http://192.168.1.39:8000/form-pdf?slug={}".format(request.GET.get("slug")), False)
     response = HttpResponse(pdf,content_type='application/pdf')
