@@ -27,7 +27,6 @@ app.config(function($routeProvider) {
     if(!active) {
         window.location = '/auth'
     }
-    console.log('hello')
 })
 
 app.controller('authen', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
@@ -75,9 +74,28 @@ const get_questions = (question_amount, answer_amount) => {
     return questions
 }
 
-app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', function ($scope, $location, $http) {
-    $( "#datepicker" ).datepicker()
+app.directive("datepicker", function () {
+    return {
+        restrict: "A",
+        require: "ngModel",
+        link: function (scope, elem, attrs, ngModelCtrl) {
+            var updateModel = function (dateText) {
+                scope.$apply(function () {
+                    ngModelCtrl.$setViewValue(dateText)
+                })
+            }
+            var options = {
+                dateFormat: "dd/mm/yy",
+                onSelect: function (dateText) {
+                    updateModel(dateText);
+                }
+            }
+            elem.datepicker(options);
+        }
+    }
+})
 
+app.controller('create_new_form_ctrl', ['$scope', '$location', '$http', '$compile', function ($scope, $location, $http, $compile) {
     $scope.answer_amount = 4
 
     $scope.submit = () => {
@@ -257,7 +275,6 @@ app.controller('form_lists_ctrl',  ['$scope', '$http', '$routeParams', '$locatio
 }])
 
 app.controller('form_edit_ctrl',  ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-    $("#datepicker").datepicker()
     const answer_amount = 5
     $scope.page = 1
 
