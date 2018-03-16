@@ -151,7 +151,7 @@ app.controller('question_form_ctrl',  ['$scope', '$http', '$routeParams', '$loca
         }
         return false
     }
-    
+
     $scope.question_label = {
         '0': 'ก',
         '1': 'ข',
@@ -430,9 +430,10 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
             $scope.check_all = false
 
             $("#tbody").empty()
-
+            var table = $('#example').DataTable()
+            table.clear()
             $scope.students.forEach((student, index) => {
-                 var tblElem = angular.element('<tr class="even pointer">'+
+                 var tblElem = '<tr class="even pointer">'+
                     '<td class="a-center ">'+
                     '<input type="checkbox" class="flat" name="table_records" ng-model="students['+index+'].is_checked" ng-change="on_click_one(students['+index+'].is_checked)">'+
                     '</td>'+
@@ -441,17 +442,15 @@ app.controller('student_list_ctrl',  ['$scope', '$http', '$routeParams', '$locat
                     '<td class=" ">'+ student.lastname +'</td>'+
                     '<td class=" last"><a style="cursor: default" data-toggle="modal" ng-click="view_point(\''+ student.slug  + '\')" >ดูคะแนน</a>'+
                     '</td>'+
-                    '</tr>')
+                    '</tr>'
 
-                //create a function to generate content
-                var compileFn = $compile(tblElem);
-
-                //execute the compilation function
-                compileFn($scope)
-
-                $( "#tbody" ).append(tblElem)
+                table.row.add($(tblElem )).draw();
             })
-            $('#example').DataTable()
+            //create a function to generate content
+            var compileFn = $compile(angular.element(document.getElementById("tbody")))
+
+            //execute the compilation function
+            compileFn($scope)
             console.log('[student_list_ctrl] ', res.data)
         })
     }
