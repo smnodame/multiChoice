@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 import json
@@ -25,24 +26,6 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-
-# class PointCalculation(APIView):
-#     def post(self, request, format=None):
-#         uploaded_file = request.FILES['file']
-#         filename = '{filename}'.format(**request.data)
-#         path_fmt = '{}/{}'
-#         with open(path_fmt.format(settings.MEDIA_ROOT, filename), 'wb+') as file:
-#             for chunk in uploaded_file.chunks():
-#                 file.write(chunk)
-#         point = calculate_point(filename)
-#         return Response(status=204, data={
-#             'point': point
-#         })
-
-
-# def handle_uploaded_file(user_slug, example_slug, f):
-
-
 @api_view(['POST', ])
 @csrf_exempt
 def upload_photo(request):
@@ -58,8 +41,12 @@ def upload_photo(request):
         point = calculate_point(filename, name, json.loads(str(form.answers)))
         s = Student.objects.get(slug=user_slug)
         f = FormChoice.objects.get(slug=example_slug)
-
-        Point.objects.update_or_create(slug=name, student=s, form=f, point=str(point))
+        exist = Point.objects.get(slug=name)
+        if exist:
+            exist.point=str(point)
+            exist.save()
+        else:
+            Point.objects.create(slug=name, student=s, form=f, point=str(point))
         return Response(status=200, data={
             'point': point
         })

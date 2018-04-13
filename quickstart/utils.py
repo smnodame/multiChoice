@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # import the necessary packages
 from imutils.perspective import four_point_transform
 from imutils import contours
@@ -25,7 +26,7 @@ def calculate_point(filename, name, ANSWER_KEY = []):
 
     # define the answer key which maps the question number
     # to the correct answer
-    
+
 
     # load the image, convert it to grayscale, blur it
     # slightly, then find edges

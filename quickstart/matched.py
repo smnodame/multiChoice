@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 matched = {
 	'1': {
 		'start': 0
