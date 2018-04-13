@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# This Python file uses the following encoding: utf-8
 # import the necessary packages
 from imutils.perspective import four_point_transform
 from imutils import contours
@@ -70,9 +70,16 @@ def calculate_point(filename, name, ANSWER_KEY = []):
     # apply a four point perspective transform to both the
     # original image and grayscale image to obtain a top-down
     # birds eye view of the paper
+
+
     paper = four_point_transform(image, docCnt.reshape(4, 2))
     warped = four_point_transform(gray, docCnt.reshape(4, 2))
     correct_paper = four_point_transform(image, docCnt.reshape(4, 2))
+
+    paper = cv2.resize(paper, (1024, 961))
+    warped = cv2.resize(warped, (1024, 961))
+    correct_paper = cv2.resize(correct_paper, (1024, 961))
+
     print('step 5')
     # apply Otsu's thresholding method to binarize the warped
     # piece of paper

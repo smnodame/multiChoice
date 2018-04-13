@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# This Python file uses the following encoding: utf-8
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 import json
@@ -38,11 +38,13 @@ def upload_photo(request):
     with open('media/{}'.format(filename), 'wb+') as destination:
         for chunk in request.FILES['file'].chunks():
             destination.write(chunk)
-        point = calculate_point(filename, name, json.loads(str(form.answers)))
+        point = calculate_point(filename, name, json.loads(form.answers))
         s = Student.objects.get(slug=user_slug)
         f = FormChoice.objects.get(slug=example_slug)
-        exist = Point.objects.get(slug=name)
+
+        exist = Point.objects.filter(slug=name)
         if exist:
+            exist = exist[0]
             exist.point=str(point)
             exist.save()
         else:
