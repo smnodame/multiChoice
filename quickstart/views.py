@@ -38,17 +38,17 @@ def upload_photo(request):
         uniq_slug = str(request.data['uniq_slug'])
         example_slug = str(request.data['example_slug'])
         filename = '{}_{}.jpg'.format(uniq_slug, example_slug)
-	path = 'media/{}'.format(filename)
+        path = 'media/{}'.format(filename)
 
         with open(path, 'wb+') as destination:
             destination.write(png_recovered)
 
-	    data = decode(cv2.imread(path))
-	    user_slug = data[0].data
+            data = decode(cv2.imread(path))
+            user_slug = data[0].data
 
             form = FormChoice.objects.get(slug=example_slug)
 
-	    filename = '{}_{}.jpg'.format(user_slug, example_slug)
+            filename = '{}_{}.jpg'.format(user_slug, example_slug)
             name = '{}_{}'.format(user_slug, example_slug)
             point = calculate_point(filename, name, json.loads(form.answers))
 
@@ -64,7 +64,9 @@ def upload_photo(request):
                 Point.objects.create(slug=name, student=s, form=f, point=str(point))
             destination.close()
             return Response(status=200, data={
-                'point': point
+                'point': point,
+                'user_id': str(s.slug),
+                'name': '{} {}'.format(str(s.firstname), str(s.lastname))
             })
 
     uniq_slug = str(request.data['uniq_slug'])
@@ -76,7 +78,7 @@ def upload_photo(request):
         for chunk in request.FILES['file'].chunks():
             destination.write(chunk)
 
-	data = decode(cv2.imread(path))
+        data = decode(cv2.imread('media/barcode1.png'))
         user_slug = data[0].data
 
         form = FormChoice.objects.get(slug=example_slug)
@@ -95,5 +97,7 @@ def upload_photo(request):
         else:
             Point.objects.create(slug=name, student=s, form=f, point=str(point))
         return Response(status=200, data={
-            'point': point
+            'point': point,
+            'user_id': str(s.slug),
+            'name': '{} {}'.format(str(s.firstname), str(s.lastname))
         })
