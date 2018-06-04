@@ -43,6 +43,7 @@ def calculate_point(filename, name, ANSWER_KEY = []):
     docCnt = None
     print('step 2')
     # ensure that at least one contour was found
+    found = False
     if len(cnts) > 0:
     	# sort the contours according to their size in
     	# descending order
@@ -59,13 +60,13 @@ def calculate_point(filename, name, ANSWER_KEY = []):
     		# then we can assume we have found the paper
     		if len(approx) == 4:
     			docCnt = approx
-
-    			(x, y, w, h) = cv2.boundingRect(cnts[round + 1])
-
-    			if w < 200:
+    			if found:
+				color = (0, 255, 0)
+ 				cv2.drawContours(image, [docCnt], -1, color, 3)
     				break
-    			round = round + 1
+    			found = True
 
+    cv2.imwrite('media/mask/{}-image.png'.format(name), image)
     print('step 4')
     # apply a four point perspective transform to both the
     # original image and grayscale image to obtain a top-down
