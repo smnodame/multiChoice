@@ -1,4 +1,4 @@
-# This Python file uses the following encoding: utf-8
+# -*- coding: utf-8 -*-
 from django.contrib.auth.models import User, Group
 from django.conf import settings
 import json
@@ -65,8 +65,8 @@ def upload_photo(request):
             destination.close()
             return Response(status=200, data={
                 'point': point,
-                'user_id': str(s.slug),
-                'name': '{} {}'.format(str(s.firstname), str(s.lastname))
+                'user_id': s.slug,
+                'name': u'{} {}'.format(s.firstname, s.lastname)
             })
 
     uniq_slug = str(request.data['uniq_slug'])
@@ -98,6 +98,6 @@ def upload_photo(request):
             Point.objects.create(slug=name, student=s, form=f, point=str(point))
         return Response(status=200, data={
             'point': point,
-            'user_id': str(s.slug),
-            'name': '{} {}'.format(str(s.firstname), str(s.lastname))
+            'user_id': s.slug,
+            'name': u'{} {}'.format(s.firstname, s.lastname)
         })
