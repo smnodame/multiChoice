@@ -11,7 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from .utils import calculate_point
 from tutorial.models import FormChoice, Student, Point
 import base64
-
+import cv2
+from pyzbar.pyzbar import decode
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -34,17 +35,23 @@ def upload_photo(request):
     if request.data.get('platform') == 'android':
         png_recovered = base64.decodestring(request.data['base64'])
 
-        user_slug = str(request.data['user_slug'])
+        uniq_slug = str(request.data['uniq_slug'])
         example_slug = str(request.data['example_slug'])
-        filename = '{}_{}.jpg'.format(user_slug, example_slug)
-        name = '{}_{}'.format(user_slug, example_slug)
+        filename = '{}_{}.jpg'.format(uniq_slug, example_slug)
+	path = 'media/{}'.format(filename)
 
-        with open('media/{}'.format(filename), 'wb+') as destination:
+        with open(path, 'wb+') as destination:
             destination.write(png_recovered)
 
+	    data = decode(cv2.imread(path))
+	    user_slug = data[0].data
 
             form = FormChoice.objects.get(slug=example_slug)
+
+	    filename = '{}_{}.jpg'.format(user_slug, example_slug)
+            name = '{}_{}'.format(user_slug, example_slug)
             point = calculate_point(filename, name, json.loads(form.answers))
+
             s = Student.objects.get(slug=user_slug)
             f = FormChoice.objects.get(slug=example_slug)
 
@@ -60,14 +67,22 @@ def upload_photo(request):
                 'point': point
             })
 
-    user_slug = str(request.POST['user_slug'])
-    example_slug = str(request.POST['example_slug'])
-    form = FormChoice.objects.get(slug=example_slug)
-    filename = '{}_{}.jpg'.format(user_slug, example_slug)
-    name = '{}_{}'.format(user_slug, example_slug)
-    with open('media/{}'.format(filename), 'wb+') as destination:
+    uniq_slug = str(request.data['uniq_slug'])
+    example_slug = str(request.data['example_slug'])
+    filename = '{}_{}.jpg'.format(uniq_slug, example_slug)
+    path = 'media/{}'.format(filename)
+
+    with open(path, 'wb+') as destination:
         for chunk in request.FILES['file'].chunks():
             destination.write(chunk)
+
+	data = decode(cv2.imread(path))
+        user_slug = data[0].data
+
+        form = FormChoice.objects.get(slug=example_slug)
+
+        filename = '{}_{}.jpg'.format(user_slug, example_slug)
+        name = '{}_{}'.format(user_slug, example_slug)
         point = calculate_point(filename, name, json.loads(form.answers))
         s = Student.objects.get(slug=user_slug)
         f = FormChoice.objects.get(slug=example_slug)
