@@ -1,3 +1,5 @@
+from __future__ import division
+
 # This Python file uses the following encoding: utf-8
 # import the necessary packages
 from imutils.perspective import four_point_transform
@@ -11,10 +13,13 @@ from django.conf import settings
 from quickstart.matched import get_matched
 import json
 
+
 class Contour(object):
     def __init__(self, x, cnt):
         self.x = x
         self.cnt = cnt
+
+PERCENT_CHOSEN = 40
 
 matched = get_matched()
 def calculate_point(filename, name, ANSWER_KEY = []):
@@ -172,6 +177,8 @@ def calculate_point(filename, name, ANSWER_KEY = []):
 
     	bubbled = None
     	color = (0, 0, 255)
+    	count_chosen = 0
+        chosen_list = []
         # # loop over the sorted contours
     	for (j, c) in enumerate(cnts):
 
@@ -183,12 +190,14 @@ def calculate_point(filename, name, ANSWER_KEY = []):
     		# apply the mask to the thresholded image, then
     		# count the number of non-zero pixels in the
     		# bubble area
-    		mask = cv2.bitwise_and(thresh, thresh, mask=mask)
-    		total = cv2.countNonZero(mask)
-
+    		mask = cv2.bitwise_and(thresh, thresh, mask=mask);
+    		total = cv2.countNonZero(mask); print('========'); print((total/len(mask)) * 100)
     		# if the current total has a larger number of total
     		# non-zero pixels, then we are examining the currently
     		# bubbled-in answer
+    		if (total/len(mask)) * 100 > PERCENT_CHOSEN:
+    			count_chosen = count_chosen + 1
+    			chosen_list.append(j + 1)
     		if bubbled is None or total > bubbled[0]:
     			bubbled = (total, j + 1)
 
@@ -196,12 +205,17 @@ def calculate_point(filename, name, ANSWER_KEY = []):
     	# *correct* answer
     	k = ANSWER_KEY[q]['correct']
 
-        color = (0, 0, 255)
-    	if k == str(bubbled[1]):
+        color = (0, 0, 255);print('-----------')
+    	if k == str(bubbled[1]) and count_chosen is 1:
             color = (0, 255, 0)
             correct += 1
-        cv2.drawContours(correct_paper, [cnts[bubbled[1]-1]], -1, color, 3)
-
+    	if count_chosen is 0:
+            pass
+    	elif count_chosen is 1:
+            cv2.drawContours(correct_paper, [cnts[bubbled[1]-1]], -1, color, 3)
+    	elif count_chosen > 1:
+            for cir in chosen_list:
+                cv2.drawContours(correct_paper, [cnts[cir-1]], -1, color, 3)
     cv2.imwrite('media/mask/{}-answer.png'.format(name), correct_paper)
     print('step 8')
     return correct
